@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Study Tracker">
-<title>Study Tracker</title>
+<title>AL Study Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -18,6 +18,7 @@
   --accent:#d4a843;--accent-dim:rgba(212,168,67,.08);--accent-bd:rgba(212,168,67,.22);
   --ns:#3a3a3a;--ns-t:#888;
   --nw-bg:#2d2010;--nw-border:#6b4c12;--nw-t:#e8a830;
+  --wk-bg:#0e1a2d;--wk-border:#1e4080;--wk-t:#5b9cf6;
   --cf-bg:#0f2218;--cf-border:#1a5c35;--cf-t:#3dba72;
   --radius:12px;--radius-sm:8px;
   --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
@@ -67,7 +68,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#1a5c35,#3dba72);transition:width .6s cubic-bezier(.4,0,.2,1)}
 
 /* STAT CARDS */
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
 .stats-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 12px;text-align:center}
 .stat-card .val{font-size:22px;font-weight:600;font-family:var(--mono)}
@@ -114,6 +115,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .cpill{font-size:12px;padding:3px 8px;border-radius:99px;font-weight:500}
 .cpill.cf{background:var(--cf-bg);color:var(--cf-t)}
 .cpill.nw{background:var(--accent-dim);color:var(--accent)}
+.cpill.wk{background:var(--wk-bg);color:var(--wk-t)}
 .cpill.ns{background:var(--ns);color:var(--ns-t)}
 .sc-pct{font-size:14px;font-weight:600;color:var(--text2)}
 
@@ -147,8 +149,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
   .dash-right .att-box{overflow:hidden;display:flex;flex-direction:column;margin-bottom:0}
   .dash-right .att-scroll{overflow-y:auto}
 
-  /* Stats grids */
-  .stats-grid{grid-template-columns:repeat(3,1fr)}
+  /* Stats grids — keep 2x2 for 4 cards */
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
   .stats-grid-2{grid-template-columns:1fr 1fr}
 
   /* Subjects section spans full width */
@@ -173,6 +175,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .lesson-grp-lbl{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;padding:0 2px}
 .lesson-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;transition:border-color var(--tr)}
 .lesson-card.nw-card{border-color:var(--accent-bd)}
+.lesson-card.wk-card{border-color:var(--wk-border)}
 .lesson-card.cf-card{border-color:rgba(26,92,53,.4)}
 .lc-top{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
 .lc-top:hover{background:var(--bg3)}
@@ -182,6 +185,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .status-btn.ns{border-color:#444}
 .status-btn.ns:hover{border-color:var(--accent)}
 .status-btn.nw{border-color:var(--accent-bd);background:var(--accent-dim)}
+.status-btn.wk{border-color:var(--wk-border);background:var(--wk-bg)}
 .status-btn.cf{border-color:var(--cf-border);background:var(--cf-bg)}
 .lc-info{flex:1;min-width:0}
 .lc-name{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -203,12 +207,20 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .lc-sec-item::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0}
 
 /* STATUS ROW */
-.status-row{display:flex;gap:6px;margin-bottom:10px}
-.sb{flex:1;padding:8px 4px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--text3);border:1px solid var(--border);transition:all var(--tr);font-family:var(--font)}
+.status-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.sb{flex:1;min-width:60px;padding:8px 4px;border-radius:var(--radius-sm);font-size:11px;font-weight:600;cursor:pointer;background:transparent;color:var(--text3);border:1px solid var(--border);transition:all var(--tr);font-family:var(--font)}
 .sb:hover{border-color:var(--text2);color:var(--text2)}
 .sb.s-ns{border-color:#666;color:#ccc}
 .sb.s-nw{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.sb.s-wk{border-color:var(--wk-border);color:var(--wk-t);background:var(--wk-bg)}
 .sb.s-cf{border-color:var(--cf-border);color:var(--cf-t);background:var(--cf-bg)}
+
+/* MOVE BUTTONS */
+.move-btns{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.move-btn{width:22px;height:22px;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--tr);padding:0}
+.move-btn:hover{border-color:var(--border2);color:var(--text);background:var(--bg4)}
+.move-btn:active{transform:scale(.9)}
+.move-btn:disabled{opacity:.2;cursor:default}
 
 /* LESSON ACTIONS */
 .lc-actions{display:flex;gap:8px}
@@ -289,7 +301,11 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
   <div class="hdr">
     <div class="hdr-inner">
       <div id="hdr-left"><div class="hdr-title">AL Study Tracker</div></div>
-      <div id="hdr-right">
+      <div id="hdr-right" style="display:flex;gap:8px;align-items:center">
+        <button class="settings-btn" onclick="openAbout()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          About
+        </button>
         <button class="settings-btn" onclick="openSettings()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
           Settings
@@ -314,6 +330,7 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
         </div>
         <div class="stats-grid">
           <div class="stat-card green"><div class="val" id="st-cf">0</div><div class="lbl">Confident</div></div>
+          <div class="stat-card" style="--sc-c:var(--wk-t)"><div class="val" id="st-wk" style="color:var(--wk-t)">0</div><div class="lbl">Working</div></div>
           <div class="stat-card amber"><div class="val" id="st-nw">0</div><div class="lbl">Needs Work</div></div>
           <div class="stat-card"><div class="val" id="st-ns">0</div><div class="lbl">Not Yet</div></div>
         </div>
@@ -413,14 +430,43 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
   </div>
 </div>
 
+<!-- ABOUT MODAL -->
+<div class="modal-overlay" id="modal-about">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-ttl">About</div>
+    <div style="text-align:center;padding:8px 0 20px">
+      <div style="font-size:48px;margin-bottom:12px">📚</div>
+      <div style="font-size:20px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px">AL Study Tracker</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:20px">Version 1.0 · Offline PWA</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px">
+      <div style="font-size:13px;color:var(--text2);line-height:1.7">
+        Track your AL/OL subjects and lessons. Mark lessons as <span style="color:var(--accent);font-weight:600">Needs Work</span>, <span style="color:var(--wk-t);font-weight:600">Working</span>, or <span style="color:var(--cf-t);font-weight:600">Confident</span>. All data is stored locally on your device — no account needed, works offline.
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+      <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:14px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Statuses</div>
+        <div style="font-size:13px;font-weight:600">4 levels</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:14px;text-align:center">
+        <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Storage</div>
+        <div style="font-size:13px;font-weight:600">On-device</div>
+      </div>
+    </div>
+    <button class="btn-secondary" onclick="closeMod('modal-about')">Close</button>
+  </div>
+</div>
+
 <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
 <div class="toast" id="toast"></div>
 
 <script>
 const EMOJIS = ['📐','⚗️','🔬','💻','📊','📚','🌿','🧬','🌏','🎨','📝','🧮','🔭','🏛️','📡','🔢'];
 const OVERDUE_DAYS = 5;
-const STATUS_NEXT = {'ns':'nw','nw':'cf','cf':'ns'};
-const STATUS_LABEL = {'ns':'Not studied','nw':'Needs work','cf':'Confident'};
+const STATUS_NEXT = {'ns':'nw','nw':'wk','wk':'cf','cf':'ns'};
+const STATUS_LABEL = {'ns':'Not studied','nw':'Needs work','wk':'Working','cf':'Confident'};
 
 const ACCENTS = {
   yellow: {p:'#d4a843',pl:'#e0b54f',bg:'rgba(212,168,67,.12)',bd:'rgba(212,168,67,.25)',shadow:'rgba(212,168,67,.35)',lbl:'Yellow'},
@@ -473,39 +519,49 @@ function showToast(msg){
 
 function greeting(){
   const h=new Date().getHours();
-  return h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  if(h>=5&&h<12) return "It's morning";
+  if(h>=12&&h<17) return "It's afternoon";
+  if(h>=17&&h<21) return "There's not much time left";
+  return "Work freely";
 }
 
 /* ── STATS ── */
 function computeStats(){
-  let cf=0,nw=0,ns=0;
+  let cf=0,nw=0,wk=0,ns=0;
   db.subjects.forEach(s=>s.lessons.forEach(l=>{
-    if(l.status==='cf')cf++;else if(l.status==='nw')nw++;else ns++;
+    if(l.status==='cf')cf++;
+    else if(l.status==='nw')nw++;
+    else if(l.status==='wk')wk++;
+    else ns++;
   }));
-  return{cf,nw,ns,total:cf+nw+ns};
+  return{cf,nw,wk,ns,total:cf+nw+wk+ns};
 }
 
 /* ── RENDER DASHBOARD ── */
 function renderDash(){
   document.getElementById('greeting').textContent=greeting();
-  const {cf,nw,ns,total}=computeStats();
+  const {cf,nw,wk,ns,total}=computeStats();
   const pct=total?Math.round(cf/total*100):0;
-  const pctInc=total?Math.round((nw+ns)/total*100):0;
+  const pctInc=total?Math.round((nw+wk+ns)/total*100):0;
   document.getElementById('op-pct').textContent=pct+'%';
   document.getElementById('op-bar').style.width=pct+'%';
   document.getElementById('op-sub').textContent=cf+' of '+total+' lesson'+(total!==1?'s':'')+' confident';
   document.getElementById('st-cf').textContent=cf;
+  document.getElementById('st-wk').textContent=wk;
   document.getElementById('st-nw').textContent=nw;
   document.getElementById('st-ns').textContent=ns;
   document.getElementById('st-pcc').textContent=pct+'%';
   document.getElementById('st-pci').textContent=pctInc+'%';
   document.getElementById('subj-count').textContent=db.subjects.length?db.subjects.length+' subject'+(db.subjects.length!==1?'s':''):'';
 
-  // ATTENTION — needs-work first, then not-studied, capped at 8
+  // ATTENTION — nw first, then wk, then ns
   const attEl=document.getElementById('att-section');
   const attItems=[];
   db.subjects.forEach(s=>s.lessons.forEach(l=>{
     if(l.status==='nw')attItems.push({lesson:l.name,subject:s.name,reason:'nw'});
+  }));
+  db.subjects.forEach(s=>s.lessons.forEach(l=>{
+    if(l.status==='wk')attItems.push({lesson:l.name,subject:s.name,reason:'wk'});
   }));
   db.subjects.forEach(s=>s.lessons.forEach(l=>{
     if(l.status==='ns'||!l.status)attItems.push({lesson:l.name,subject:s.name,reason:'ns'});
@@ -518,6 +574,7 @@ function renderDash(){
   if(attItems.length){
     const shown=attItems.slice(0,20);
     const extra=attItems.length-shown.length;
+    const reasonLabel={nw:'Needs work',wk:'Working',ns:'Not studied',overdue:'Overdue'};
     attEl.innerHTML='<div class="att-box">'+
       '<div class="att-box-head">'+
         '<span class="att-box-ttl">Needs Attention</span>'+
@@ -528,7 +585,7 @@ function renderDash(){
         <span class="att-num">${idx+1}</span>
         <div class="att-info">
           <div class="att-lesson">${esc(i.lesson)}</div>
-          <div class="att-subject">${esc(i.subject)} · ${i.reason==='overdue'?'Overdue':i.reason==='nw'?'Needs work':'Not studied'}</div>
+          <div class="att-subject">${esc(i.subject)} · ${reasonLabel[i.reason]||i.reason}</div>
         </div>
         <div class="att-dot${i.reason==='overdue'?' overdue':''}"></div>
       </div>`).join('')+
@@ -548,9 +605,11 @@ function renderDash(){
     const tot=s.lessons.length;
     const c=s.lessons.filter(l=>l.status==='cf').length;
     const w=s.lessons.filter(l=>l.status==='nw').length;
+    const wk=s.lessons.filter(l=>l.status==='wk').length;
     const n=s.lessons.filter(l=>l.status==='ns'||!l.status).length;
     const pct=tot?Math.round(c/tot*100):0;
     const pills=(c?`<span class="cpill cf">${c} confident</span>`:'')+
+                (wk?`<span class="cpill wk">${wk} working</span>`:'')+
                 (w?`<span class="cpill nw">${w} needs work</span>`:'')+
                 (n?`<span class="cpill ns">${n} not studied</span>`:'');
     return`<div class="subject-card" onclick="openSubject('${s.id}')">
@@ -571,6 +630,7 @@ function renderDash(){
 /* ── OPEN SUBJECT ── */
 function openSubject(id){
   curSubjId=id;expandedLesson=null;
+  history.pushState({page:'subject',id},'');
   document.getElementById('view-dash').classList.remove('active');
   document.getElementById('view-subj').classList.add('active');
   document.getElementById('hdr-left').innerHTML=`<button class="hdr-back" onclick="goBack()">
@@ -585,12 +645,45 @@ function goBack(){
   document.getElementById('view-subj').classList.remove('active');
   document.getElementById('view-dash').classList.add('active');
   document.getElementById('hdr-left').innerHTML='<div class="hdr-title">AL Study Tracker</div>';
-  document.getElementById('hdr-right').innerHTML=`<button class="settings-btn" onclick="openSettings()">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    Settings
-  </button>`;
+  document.getElementById('hdr-right').innerHTML=`<div style="display:flex;gap:8px;align-items:center">
+    <button class="settings-btn" onclick="openAbout()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      About
+    </button>
+    <button class="settings-btn" onclick="openSettings()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Settings
+    </button>
+  </div>`;
   renderDash();
 }
+
+/* intercept browser/phone back AND forward buttons */
+window.addEventListener('popstate',(e)=>{
+  const state=e.state||{};
+  // close any open modal first
+  const openMods=document.querySelectorAll('.modal-overlay.open');
+  if(openMods.length){
+    openMods.forEach(m=>m.classList.remove('open'));
+    // re-push state so next back still works correctly
+    history.pushState(curSubjId?{page:'subject',id:curSubjId}:{page:'dashboard'},'');
+    return;
+  }
+  // navigating forward to a subject
+  if(state.page==='subject'&&state.id){
+    curSubjId=state.id;expandedLesson=null;
+    document.getElementById('view-dash').classList.remove('active');
+    document.getElementById('view-subj').classList.add('active');
+    document.getElementById('hdr-left').innerHTML=`<button class="hdr-back" onclick="goBack()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="10,3 5,8 10,13"/></svg>Back
+    </button>`;
+    document.getElementById('hdr-right').innerHTML=`<button class="del-subj-btn" onclick="deleteSubject('${state.id}')">Delete subject</button>`;
+    renderSubjectDetail();
+    return;
+  }
+  // navigating back to dashboard
+  if(curSubjId){goBack();}
+});
 
 /* ── RENDER SUBJECT DETAIL ── */
 function renderSubjectDetail(){
@@ -599,19 +692,12 @@ function renderSubjectDetail(){
   const tot=s.lessons.length;
   const cf=s.lessons.filter(l=>l.status==='cf').length;
   const nw=s.lessons.filter(l=>l.status==='nw').length;
+  const wk=s.lessons.filter(l=>l.status==='wk').length;
   const ns=s.lessons.filter(l=>l.status==='ns'||!l.status).length;
   const pct=tot?Math.round(cf/tot*100):0;
 
-  const groups=[
-    {key:'nw',lbl:'Needs Work',lessons:s.lessons.filter(l=>l.status==='nw')},
-    {key:'ns',lbl:'Not Studied',lessons:s.lessons.filter(l=>l.status==='ns'||!l.status)},
-    {key:'cf',lbl:'Confident',lessons:s.lessons.filter(l=>l.status==='cf')}
-  ];
-  const lessonsHtml=tot?groups.filter(g=>g.lessons.length).map(g=>`
-    <div class="lesson-group">
-      <div class="lesson-grp-lbl">${g.lbl}</div>
-      ${g.lessons.map(l=>renderLessonCard(l)).join('')}
-    </div>`).join(''):
+  // FLAT list — lessons stay in their insertion/reordered position, no jumping
+  const lessonsHtml=tot?s.lessons.map((l,idx)=>renderLessonCard(l,idx,tot)).join(''):
     `<div class="empty-state" style="padding:32px 0">
       <div class="empty-state-icon">📝</div>
       <h3>No lessons yet</h3>
@@ -630,6 +716,7 @@ function renderSubjectDetail(){
           <div class="sd-prog-bar"><div class="sd-prog-fill" style="width:${pct}%"></div></div>
           <div class="sd-prog-row">
             <div class="sd-prog-item" style="color:var(--cf-t)"><strong>${cf}</strong> confident</div>
+            <div class="sd-prog-item" style="color:var(--wk-t)"><strong>${wk}</strong> working</div>
             <div class="sd-prog-item" style="color:var(--accent)"><strong>${nw+ns}</strong> needs work</div>
             <div class="sd-prog-item"><strong>${ns}</strong> not studied</div>
           </div>
@@ -642,15 +729,17 @@ function renderSubjectDetail(){
     </div>`;
 }
 
-function renderLessonCard(lesson){
+function renderLessonCard(lesson,idx,total){
   const st=lesson.status||'ns';
-  const cardClass=st==='nw'?'nw-card':st==='cf'?'cf-card':'';
+  const cardClass=st==='nw'?'nw-card':st==='wk'?'wk-card':st==='cf'?'cf-card':'';
   const isOpen=expandedLesson===lesson.id;
   const lastStudied=lesson.lastStudied?'· '+fdate(lesson.lastStudied):'';
   const meta=STATUS_LABEL[st]+' '+lastStudied;
 
   const statusIconSvg=st==='cf'
     ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,7 5.5,10.5 12,3.5" stroke="#3dba72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    :st==='wk'
+    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,9 5,5.5 8,7.5 12,3.5" stroke="#5b9cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
     :st==='nw'
     ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="8" stroke="${ACCENTS[accent].p}" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="10.5" r="1" fill="${ACCENTS[accent].p}"/></svg>`
     :'';
@@ -671,6 +760,7 @@ function renderLessonCard(lesson){
     <div class="status-row">
       <button class="sb${st==='ns'?' s-ns':''}" onclick="setStatus('${lesson.id}','ns',event)">Not studied</button>
       <button class="sb${st==='nw'?' s-nw':''}" onclick="setStatus('${lesson.id}','nw',event)">Needs work</button>
+      <button class="sb${st==='wk'?' s-wk':''}" onclick="setStatus('${lesson.id}','wk',event)">Working</button>
       <button class="sb${st==='cf'?' s-cf':''}" onclick="setStatus('${lesson.id}','cf',event)">Confident</button>
     </div>
     <div class="lc-actions">
@@ -678,6 +768,16 @@ function renderLessonCard(lesson){
       <button class="lac lac-del" onclick="deleteLesson('${lesson.id}',event)">Delete</button>
     </div>
   </div>`:'<div class="lc-panel"></div>';
+
+  // Move up/down arrows
+  const moveHtml=`<div class="move-btns" onclick="event.stopPropagation()">
+    <button class="move-btn" onclick="moveLesson('${lesson.id}',-1,event)" ${idx===0?'disabled':''} title="Move up">
+      <svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2,7 5,3 8,7"/></svg>
+    </button>
+    <button class="move-btn" onclick="moveLesson('${lesson.id}',1,event)" ${idx===total-1?'disabled':''} title="Move down">
+      <svg viewBox="0 0 10 10" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="2,3 5,7 8,3"/></svg>
+    </button>
+  </div>`;
 
   return`<div class="lesson-card ${cardClass}" id="lc-${lesson.id}">
     <div class="lc-top" onclick="toggleLesson('${lesson.id}')">
@@ -688,7 +788,8 @@ function renderLessonCard(lesson){
         <div class="lc-name">${esc(lesson.name)}</div>
         <div class="lc-meta">${meta}</div>
       </div>
-      <button class="lc-chevron${isOpen?' open':''}" id="chev-${lesson.id}" onclick="toggleLesson('${lesson.id}',event)">
+      ${moveHtml}
+      <button class="lc-chevron${isOpen?' open':''}" onclick="toggleLesson('${lesson.id}',event)">
         <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="4,6 8,10 12,6"/></svg>
       </button>
     </div>
@@ -719,6 +820,18 @@ function setStatus(lid,status,e){
   const l=s.lessons.find(x=>x.id===lid);
   l.status=status;
   if(status!=='ns')l.lastStudied=Date.now();
+  sv();renderSubjectDetail();
+}
+
+function moveLesson(id,dir,e){
+  e.stopPropagation();
+  const s=db.subjects.find(x=>x.id===curSubjId);
+  const idx=s.lessons.findIndex(l=>l.id===id);
+  const newIdx=idx+dir;
+  if(newIdx<0||newIdx>=s.lessons.length)return;
+  const tmp=s.lessons[idx];
+  s.lessons[idx]=s.lessons[newIdx];
+  s.lessons[newIdx]=tmp;
   sv();renderSubjectDetail();
 }
 
@@ -916,8 +1029,13 @@ self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r
   navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
 
+/* ── ABOUT ── */
+function openAbout(){openMod('modal-about')}
+
 /* ── INIT ── */
 ld();applyAccent(accent);renderDash();
+// push a base state so the very first browser back press doesn't exit the app
+history.replaceState({page:'dashboard'},'');
 
 function syncAttHeight(){
   if(window.innerWidth<740)return;
