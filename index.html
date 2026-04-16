@@ -285,7 +285,15 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 .io-row .btn-primary,.io-row .btn-secondary{margin:0}
 .io-hint{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:4px}
 
-/* EMPTY STATE */
+/* DOWNLOAD CHECKLIST */
+.dl-item{display:flex;align-items:center;gap:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:border-color var(--tr)}
+.dl-item:hover{border-color:var(--border2)}
+.dl-item.checked{border-color:var(--accent-bd);background:var(--accent-dim)}
+.dl-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border2);background:var(--bg4);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all var(--tr)}
+.dl-item.checked .dl-check{background:var(--accent);border-color:var(--accent)}
+.dl-info{flex:1;min-width:0}
+.dl-name{font-size:14px;font-weight:500}
+.dl-cnt{font-size:11px;color:var(--text3);margin-top:2px}
 .empty-state{text-align:center;padding:48px 20px}
 .empty-state-icon{font-size:48px;margin-bottom:16px}
 .empty-state h3{font-size:18px;font-weight:600;margin-bottom:8px}
@@ -302,9 +310,9 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
     <div class="hdr-inner">
       <div id="hdr-left"><div class="hdr-title">AL Study Tracker</div></div>
       <div id="hdr-right" style="display:flex;gap:8px;align-items:center">
-        <button class="settings-btn" onclick="openAbout()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          About
+        <button class="settings-btn" onclick="openDownload()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
         </button>
         <button class="settings-btn" onclick="openSettings()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -421,41 +429,42 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
     <div class="settings-sec">
       <div class="settings-lbl">Data</div>
       <div class="io-row">
-        <button class="btn-primary" onclick="exportData()">Export Data</button>
-        <button class="btn-secondary" onclick="document.getElementById('import-file').click()">Import Data</button>
+        <button class="btn-primary" onclick="exportData()">Export All</button>
+        <button class="btn-secondary" onclick="document.getElementById('import-file').click()">Import</button>
       </div>
-      <div class="io-hint">Export saves all your subjects and lessons as a .json file. Import on any device to restore everything instantly.</div>
+      <div class="io-hint">Export saves all subjects as one .json file. Import merges subjects without replacing existing data.</div>
+    </div>
+    <div class="settings-sec" style="margin-bottom:0">
+      <div class="settings-lbl">About</div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <span style="font-size:14px;font-weight:600">AL Study Tracker</span>
+          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px">v1.0</span>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px">Track your AL/OL subjects and lessons offline. Mark lessons as Not Studied, Needs Work, Working or Confident. All data stays on your device — no account, no internet needed.</div>
+        <div style="font-size:11px;color:var(--text3)">Made with ❤️ · Offline PWA · localStorage</div>
+      </div>
     </div>
     <button class="btn-secondary" onclick="closeMod('modal-settings')">Close</button>
   </div>
 </div>
 
-<!-- ABOUT MODAL -->
-<div class="modal-overlay" id="modal-about">
+<!-- DOWNLOAD MODAL -->
+<div class="modal-overlay" id="modal-download">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-ttl">About</div>
-    <div style="text-align:center;padding:8px 0 20px">
-      <div style="font-size:48px;margin-bottom:12px">📚</div>
-      <div style="font-size:20px;font-weight:700;margin-bottom:4px;letter-spacing:-.3px">AL Study Tracker</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:20px">Version 1.1 · Offline PWA</div>
+    <div class="modal-ttl">Download Subjects</div>
+    <div style="font-size:13px;color:var(--text2);margin-bottom:14px">Select subjects to download as a combined .json file.</div>
+    <div id="dl-subject-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px"></div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <button class="btn-secondary" style="margin:0;flex:1;padding:8px" onclick="dlSelectAll(true)">Select All</button>
+      <button class="btn-secondary" style="margin:0;flex:1;padding:8px" onclick="dlSelectAll(false)">Deselect All</button>
     </div>
-    <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:16px;margin-bottom:20px">
-      <div style="font-size:13px;color:var(--text2);line-height:1.7">
-        Track your AL/OL subjects and lessons. Mark lessons as <span style="color:var(--accent);font-weight:600">Needs Work</span>, <span style="color:var(--wk-t);font-weight:600">Working</span>, or <span style="color:var(--cf-t);font-weight:600">Confident</span>. All data is stored locally on your device — no account needed, works offline.
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-      <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:14px;text-align:center">
-        <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Statuses</div>
-        <div style="font-size:13px;font-weight:600">4 levels</div>
-      </div>
-      <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:14px;text-align:center">
-        <div style="font-size:10px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Storage</div>
-        <div style="font-size:13px;font-weight:600">On-device</div>
-      </div>
-    </div>
-    <button class="btn-secondary" onclick="closeMod('modal-about')">Close</button>
+    <button class="btn-primary" onclick="doDownloadSelected()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download Selected
+    </button>
+    <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
   </div>
 </div>
 
@@ -646,9 +655,9 @@ function goBack(){
   document.getElementById('view-dash').classList.add('active');
   document.getElementById('hdr-left').innerHTML='<div class="hdr-title">AL Study Tracker</div>';
   document.getElementById('hdr-right').innerHTML=`<div style="display:flex;gap:8px;align-items:center">
-    <button class="settings-btn" onclick="openAbout()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      About
+    <button class="settings-btn" onclick="openDownload()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download
     </button>
     <button class="settings-btn" onclick="openSettings()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -1051,8 +1060,55 @@ self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r
   navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
 
-/* ── ABOUT ── */
-function openAbout(){openMod('modal-about')}
+/* ── DOWNLOAD ── */
+function openDownload(){
+  if(!db.subjects.length){showToast('No subjects to download.');return;}
+  const list=document.getElementById('dl-subject-list');
+  list.innerHTML=db.subjects.map(s=>{
+    const tot=s.lessons.length;
+    return`<div class="dl-item checked" id="dl-${s.id}" onclick="dlToggle('${s.id}')">
+      <div class="dl-check" id="dlc-${s.id}">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2.5" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="dl-info">
+        <div class="dl-name">${esc(s.emoji||'📚')} ${esc(s.name)}</div>
+        <div class="dl-cnt">${tot} lesson${tot!==1?'s':''}</div>
+      </div>
+    </div>`;
+  }).join('');
+  openMod('modal-download');
+}
+
+function dlToggle(id){
+  const item=document.getElementById('dl-'+id);
+  item.classList.toggle('checked');
+}
+
+function dlSelectAll(val){
+  db.subjects.forEach(s=>{
+    const item=document.getElementById('dl-'+s.id);
+    if(item){if(val)item.classList.add('checked');else item.classList.remove('checked');}
+  });
+}
+
+function doDownloadSelected(){
+  const selected=db.subjects.filter(s=>{
+    const el=document.getElementById('dl-'+s.id);
+    return el&&el.classList.contains('checked');
+  });
+  if(!selected.length){showToast('Select at least one subject.');return;}
+  const payload={version:2,exported:new Date().toISOString(),subjects:selected};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;
+  const names=selected.length===1
+    ?selected[0].name.replace(/[^a-z0-9]/gi,'_').toLowerCase()
+    :'subjects-'+selected.length;
+  a.download='studytrack-'+names+'-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();URL.revokeObjectURL(url);
+  closeMod('modal-download');
+  showToast(selected.length+' subject'+(selected.length!==1?'s':'')+' downloaded.');
+}
 
 /* ── INIT ── */
 ld();applyAccent(accent);renderDash();
