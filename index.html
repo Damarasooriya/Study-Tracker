@@ -285,6 +285,25 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 .io-row .btn-primary,.io-row .btn-secondary{margin:0}
 .io-hint{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:4px}
 
+/* DOWNLOAD TABS */
+.dl-tabs{display:flex;gap:4px;background:var(--bg4);border-radius:var(--radius-sm);padding:4px;margin-bottom:16px}
+.dl-tab{flex:1;padding:8px;border-radius:6px;border:none;background:none;color:var(--text2);font-family:var(--font);font-size:13px;font-weight:500;cursor:pointer;transition:all var(--tr)}
+.dl-tab.active{background:var(--bg2);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.dl-tab:hover:not(.active){color:var(--text)}
+
+/* LIBRARY CARDS */
+.lib-card{display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px 14px;transition:all var(--tr)}
+.lib-card:hover{border-color:var(--border2);background:var(--bg4)}
+.lib-card.added{border-color:var(--cf-border);background:var(--cf-bg)}
+.lib-card-info .lib-name{font-size:14px;font-weight:600}
+.lib-card-info .lib-cnt{font-size:11px;color:var(--text3);margin-top:2px}
+.lib-add-btn{background:var(--accent);color:#000;border:none;border-radius:var(--radius-sm);padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:all var(--tr);flex-shrink:0;white-space:nowrap}
+.lib-add-btn:hover{filter:brightness(1.1)}
+.lib-add-btn:active{transform:scale(.95)}
+.lib-add-btn.done{background:var(--cf-bg);color:var(--cf-t);border:1px solid var(--cf-border);cursor:default}
+.lib-loading{font-size:13px;color:var(--text3);text-align:center;padding:32px 0}
+.lib-error{font-size:13px;color:#e24b4a;text-align:center;padding:24px 0;line-height:1.6}
+
 /* DOWNLOAD CHECKLIST */
 .dl-item{display:flex;align-items:center;gap:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:border-color var(--tr)}
 .dl-item:hover{border-color:var(--border2)}
@@ -439,10 +458,10 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
           <span style="font-size:14px;font-weight:600">AL Study Tracker</span>
-          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px">v1.2</span>
+          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px">v1.0</span>
         </div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px">Track your AL/OL subjects and lessons offline. All data stays on your device — no account, no internet needed.</div>
-        <div style="font-size:11px;color:var(--text3)">Made with ❤️</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px">Track your AL/OL subjects and lessons offline. Mark lessons as Not Studied, Needs Work, Working or Confident. All data stays on your device — no account, no internet needed.</div>
+        <div style="font-size:11px;color:var(--text3)">Made with ❤️ · Offline PWA · localStorage</div>
       </div>
     </div>
     <button class="btn-secondary" onclick="closeMod('modal-settings')">Close</button>
@@ -451,20 +470,39 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 
 <!-- DOWNLOAD MODAL -->
 <div class="modal-overlay" id="modal-download">
-  <div class="modal">
+  <div class="modal" style="padding-bottom:28px">
     <div class="modal-handle"></div>
-    <div class="modal-ttl">Download Subjects</div>
-    <div style="font-size:13px;color:var(--text2);margin-bottom:14px">Select subjects to download as a combined .json file.</div>
-    <div id="dl-subject-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px"></div>
-    <div style="display:flex;gap:8px;margin-bottom:16px">
-      <button class="btn-secondary" style="margin:0;flex:1;padding:8px" onclick="dlSelectAll(true)">Select All</button>
-      <button class="btn-secondary" style="margin:0;flex:1;padding:8px" onclick="dlSelectAll(false)">Deselect All</button>
+    <div class="modal-ttl" style="margin-bottom:12px">Subjects</div>
+
+    <!-- TABS -->
+    <div class="dl-tabs">
+      <button class="dl-tab active" id="dltab-mine" onclick="switchDlTab('mine')">My Downloads</button>
+      <button class="dl-tab" id="dltab-lib" onclick="switchDlTab('lib')">Library</button>
     </div>
-    <button class="btn-primary" onclick="doDownloadSelected()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download Selected
-    </button>
-    <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
+
+    <!-- MY DOWNLOADS PANEL -->
+    <div id="dl-panel-mine">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Select subjects to download as a combined .json file.</div>
+      <div id="dl-subject-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <button class="btn-secondary" style="margin:0;flex:1;padding:8px;font-size:12px" onclick="dlSelectAll(true)">Select All</button>
+        <button class="btn-secondary" style="margin:0;flex:1;padding:8px;font-size:12px" onclick="dlSelectAll(false)">Deselect All</button>
+      </div>
+      <button class="btn-primary" onclick="doDownloadSelected()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Selected
+      </button>
+      <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
+    </div>
+
+    <!-- LIBRARY PANEL -->
+    <div id="dl-panel-lib" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:14px">Tap a subject to add it to your app instantly.</div>
+      <div id="lib-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        <div class="lib-loading">Loading library...</div>
+      </div>
+      <button class="btn-secondary" onclick="closeMod('modal-download')">Close</button>
+    </div>
   </div>
 </div>
 
@@ -1060,22 +1098,110 @@ self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r
   navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
 }
 
-/* ── DOWNLOAD ── */
-function openDownload(){
-  if(!db.subjects.length){showToast('No subjects to download.');return;}
-  const list=document.getElementById('dl-subject-list');
-  list.innerHTML=db.subjects.map(s=>{
-    const tot=s.lessons.length;
-    return`<div class="dl-item checked" id="dl-${s.id}" onclick="dlToggle('${s.id}')">
-      <div class="dl-check" id="dlc-${s.id}">
-        <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2.5" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+/* ── LIBRARY ── */
+// ↓ CHANGE THIS to your GitHub raw index URL after you set up the repo
+const LIBRARY_INDEX_URL = 'https://raw.githubusercontent.com/damarasooriya/studytrack-library/refs/heads/main/library/index.json';
+
+let libCache = null; // cache fetched library so we don't re-fetch on every open
+
+function switchDlTab(tab){
+  document.getElementById('dltab-mine').classList.toggle('active', tab==='mine');
+  document.getElementById('dltab-lib').classList.toggle('active', tab==='lib');
+  document.getElementById('dl-panel-mine').style.display = tab==='mine'?'block':'none';
+  document.getElementById('dl-panel-lib').style.display = tab==='lib'?'block':'none';
+  if(tab==='lib') fetchLibrary();
+}
+
+async function fetchLibrary(){
+  const listEl=document.getElementById('lib-list');
+  if(libCache){renderLibrary(libCache);return;}
+  listEl.innerHTML='<div class="lib-loading">Loading library...</div>';
+  try{
+    const res=await fetch(LIBRARY_INDEX_URL+'?t='+Date.now());
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const index=await res.json();
+    libCache=index;
+    renderLibrary(index);
+  }catch(e){
+    listEl.innerHTML=`<div class="lib-error">
+      Could not load library.<br>
+      <span style="font-size:11px;color:var(--text3)">Check your internet connection or the library URL in settings.</span>
+    </div>`;
+  }
+}
+
+function renderLibrary(index){
+  const listEl=document.getElementById('lib-list');
+  if(!index||!index.subjects||!index.subjects.length){
+    listEl.innerHTML='<div class="lib-loading">No subjects in the library yet.</div>';
+    return;
+  }
+  const existingNames=new Set(db.subjects.map(s=>s.name.trim().toLowerCase()));
+  listEl.innerHTML=index.subjects.map(item=>{
+    const already=existingNames.has((item.name||'').trim().toLowerCase());
+    return`<div class="lib-card${already?' added':''}" id="libcard-${item.file}">
+      <div class="lib-card-info">
+        <div class="lib-name">${esc(item.emoji||'📚')} ${esc(item.name)}</div>
+        <div class="lib-cnt">${item.lessonCount||'?'} lessons</div>
       </div>
-      <div class="dl-info">
-        <div class="dl-name">${esc(s.emoji||'📚')} ${esc(s.name)}</div>
-        <div class="dl-cnt">${tot} lesson${tot!==1?'s':''}</div>
-      </div>
+      <button class="lib-add-btn${already?' done':''}"
+        onclick="addFromLibrary('${item.file}','libcard-${item.file}')"
+        ${already?'disabled':''}>
+        ${already?'Added':'+ Add'}
+      </button>
     </div>`;
   }).join('');
+}
+
+async function addFromLibrary(file, cardId){
+  const btn=document.querySelector(`#${cardId} .lib-add-btn`);
+  if(!btn||btn.disabled)return;
+  btn.textContent='Adding...';btn.disabled=true;
+  try{
+    // build the raw URL from the same base as the index
+    const base=LIBRARY_INDEX_URL.replace('index.json','');
+    const res=await fetch(base+file+'?t='+Date.now());
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const subjects=data.subjects||[data]; // support single-subject or multi-subject files
+    let added=0,merged=0;
+    subjects.forEach(impSubj=>{
+      let existing=db.subjects.find(s=>s.id===impSubj.id)
+                ||db.subjects.find(s=>s.name.trim().toLowerCase()===impSubj.name.trim().toLowerCase());
+      if(!existing){db.subjects.push(impSubj);added++;}
+      else{
+        const names=new Set(existing.lessons.map(l=>l.name.trim().toLowerCase()));
+        (impSubj.lessons||[]).forEach(l=>{if(!names.has(l.name.trim().toLowerCase())){existing.lessons.push(l);merged++;}});
+      }
+    });
+    sv();renderDash();
+    const card=document.getElementById(cardId);
+    if(card){card.classList.add('added');btn.textContent='Added';btn.classList.add('done');}
+    showToast(added?`"${subjects[0].name}" added to your subjects`:`${merged} new lessons merged`);
+  }catch(e){
+    btn.textContent='+ Add';btn.disabled=false;
+    showToast('Failed to load subject. Check your connection.');
+  }
+}
+function openDownload(){
+  switchDlTab('mine');
+  const list=document.getElementById('dl-subject-list');
+  if(!db.subjects.length){
+    list.innerHTML='<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">No subjects yet.</div>';
+  } else {
+    list.innerHTML=db.subjects.map(s=>{
+      const tot=s.lessons.length;
+      return`<div class="dl-item checked" id="dl-${s.id}" onclick="dlToggle('${s.id}')">
+        <div class="dl-check" id="dlc-${s.id}">
+          <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="1,6 4.5,9.5 11,2.5" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="dl-info">
+          <div class="dl-name">${esc(s.emoji||'📚')} ${esc(s.name)}</div>
+          <div class="dl-cnt">${tot} lesson${tot!==1?'s':''}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
   openMod('modal-download');
 }
 
