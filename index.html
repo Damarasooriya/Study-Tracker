@@ -272,15 +272,24 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 .add-sec-btn{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:0 16px;color:var(--text);cursor:pointer;font-family:var(--font);font-size:14px;white-space:nowrap;transition:all var(--tr)}
 .add-sec-btn:hover{background:var(--bg4)}
 
-/* SETTINGS */
-.settings-sec{margin-bottom:22px}
+/* THEME DOTS — like accent color list in image 1 */
+.acc-grid{display:flex;flex-wrap:wrap;gap:14px;padding:4px 0}
+.theme-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
+.theme-dot{width:38px;height:38px;border-radius:50%;border:3px solid transparent;transition:all .2s;flex-shrink:0;outline:2px solid transparent;outline-offset:1px}
+.theme-dot:hover{transform:scale(1.12)}
+.theme-dot.active{outline-color:var(--text);transform:scale(1.1)}
+.theme-dot-name{font-size:10px;color:var(--text3);font-weight:500;text-align:center;max-width:46px;line-height:1.2}
+
+/* SEARCH BAR */
+.search-wrap{position:relative;margin-bottom:14px}
+.search-inp{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 36px 10px 38px;color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border-color var(--tr)}
+.search-inp:focus{border-color:var(--accent)}
+.search-inp::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;width:16px;height:16px}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:18px;padding:2px 6px;line-height:1;display:none;font-family:var(--font)}
+.search-clear:hover{color:var(--text)}
+.no-results{font-size:13px;color:var(--text3);text-align:center;padding:24px 0}
 .settings-lbl{font-size:11px;font-weight:500;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-.acc-grid{display:flex;flex-wrap:wrap;gap:12px}
-.acc-opt{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer}
-.acc-swatch{width:36px;height:36px;border-radius:50%;border:3px solid transparent;transition:all .2s}
-.acc-swatch.active{border-color:var(--text)}
-.acc-swatch:hover{transform:scale(1.1)}
-.acc-name{font-size:10px;color:var(--text3);font-weight:500}
 .io-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
 .io-row .btn-primary,.io-row .btn-secondary{margin:0}
 .io-hint{font-size:12px;color:var(--text3);line-height:1.6;margin-bottom:4px}
@@ -327,7 +336,7 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       <div id="hdr-right" style="display:flex;gap:8px;align-items:center">
         <button class="settings-btn" onclick="openDownload()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Subjects
+          Download
         </button>
         <button class="settings-btn" onclick="openSettings()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -434,41 +443,84 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 
 <!-- SETTINGS MODAL -->
 <div class="modal-overlay" id="modal-settings">
-  <div class="modal">
+  <div class="modal" style="padding-bottom:28px">
     <div class="modal-handle"></div>
-    <div class="modal-ttl">Settings</div>
-    <div class="settings-sec">
-      <div class="settings-lbl">Accent Color</div>
-      <div class="acc-grid" id="acc-grid"></div>
+    <div class="modal-ttl" style="margin-bottom:12px">Settings</div>
+
+    <!-- TABS -->
+    <div class="dl-tabs">
+      <button class="dl-tab active" id="stab-data"  onclick="switchStab('data')">Data</button>
+      <button class="dl-tab"        id="stab-theme" onclick="switchStab('theme')">Theme</button>
+      <button class="dl-tab"        id="stab-about" onclick="switchStab('about')">About</button>
     </div>
-    <div class="settings-sec">
-      <div class="settings-lbl">Data</div>
-      <div class="io-row">
-        <button class="btn-primary" onclick="exportData()">Export All</button>
-        <button class="btn-secondary" onclick="document.getElementById('import-file').click()">Import</button>
+
+    <!-- DATA PANEL -->
+    <div id="spanel-data">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Manage your subject data. Use this feature to export subjects and import subjects. Subjects save sa a ".json" file. You can share your subjects with your friends that unavailable in library. Don't forget to upload Subjects created by you that unavailable in Library. After upload that subjects available in Library. So everyone can use it.</div>
+      <div class="io-row" style="margin-bottom:10px">
+        <button class="btn-primary" onclick="exportData()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Export All
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('import-file').click()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Import
+        </button>
       </div>
-      <div class="io-hint">Export saves all subjects as ".json" file. </div>
+      <div class="io-hint" style="margin-bottom:0">Export saves all subjects and lessons as a .json file. Import merges subjects without replacing existing data. Use this to transfer data between devices.</div>
     </div>
-    <div class="settings-sec" style="margin-bottom:0">
-      <div class="settings-lbl">About</div>
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-          <span style="font-size:14px;font-weight:600">Study Tracker</span>
-          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px">v1.8</span>
+
+    <!-- THEME PANEL -->
+    <div id="spanel-theme" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px">Choose a theme. Changes colours across the whole app.</div>
+      <div class="acc-grid" id="theme-grid"></div>
+    </div>
+
+    <!-- ABOUT PANEL -->
+    <div id="spanel-about" style="display:none">
+      <!-- App info -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+          <span style="font-size:15px;font-weight:700">Study Tracker</span>
+          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px;font-family:var(--mono)">v1.9</span>
         </div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:10px">Track your subjects and lessons. 😁 No login needed.</div>
-        <div style="font-size:11px;color:var(--text3)">Made from D_amarasooriya with Claude</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px">Track your AL/OL subjects and lessons. Mark lessons as Not Studied, Needs Work, Working or Confident. Watch your progress grow over time.</div>
+        <div style="font-size:11px;color:var(--text3)">Made by D_amarasooriya with Claude ❤️</div>
+      </div>
+      <!-- User guide -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Quick Guide</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">➕</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Add subjects</strong> — tap the + button on the dashboard. Give it a name and pick an emoji icon.</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">📝</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Add lessons</strong> — open a subject, tap +. Add lesson name, notes, resource links and sections.</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">🔄</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Change status</strong> — tap the circle icon on a lesson to cycle: Not Studied → Needs Work → Working → Confident.</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">↕️</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Reorder lessons</strong> — use the ▲▼ arrows on each lesson card to move it up or down.</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">📚</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Library</strong> — tap Download to browse and add pre-made subjects from the community library.</div></div>
+          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">💾</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Back up data</strong> — use Export in Settings → Data. Import on any device to restore everything.</div></div>
+        </div>
+      </div>
+      <!-- Privacy -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Your Privacy</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">All data stored only on <strong style="color:var(--text)">your device</strong></span></div>
+          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No account or login required</span></div>
+          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No data sent to any server</span></div>
+          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">Works fully offline after first load</span></div>
+          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No tracking, no ads, no analytics</span></div>
+        </div>
       </div>
     </div>
-    <button class="btn-secondary" onclick="closeMod('modal-settings')">Close</button>
+
+    <button class="btn-secondary" onclick="closeMod('modal-settings')" style="margin-top:16px">Close</button>
   </div>
 </div>
 
-<!-- SUBJECTS & FEEDBACK MODAL -->
+<!-- DOWNLOAD MODAL -->
 <div class="modal-overlay" id="modal-download">
   <div class="modal" style="padding-bottom:28px">
     <div class="modal-handle"></div>
-    <div class="modal-ttl" style="margin-bottom:12px">Subjects & Feedback </div>
+    <div class="modal-ttl" style="margin-bottom:12px">Community</div>
 
     <!-- TABS -->
     <div class="dl-tabs">
@@ -544,16 +596,29 @@ const OVERDUE_DAYS = 5;
 const STATUS_NEXT = {'ns':'nw','nw':'wk','wk':'cf','cf':'ns'};
 const STATUS_LABEL = {'ns':'Not studied','nw':'Needs work','wk':'Working','cf':'Confident'};
 
-const ACCENTS = {
-  yellow:  {p:'#d4a843',pl:'#e0b54f',bg:'rgba(212,168,67,.12)',bd:'rgba(212,168,67,.25)',shadow:'rgba(212,168,67,.35)',lbl:'Yellow'},
-  purple:  {p:'#9b59b6',pl:'#b07cc6',bg:'rgba(155,89,182,.12)',bd:'rgba(155,89,182,.25)',shadow:'rgba(155,89,182,.35)',lbl:'Purple'},
-  seablue: {p:'#0891b2',pl:'#22d3ee',bg:'rgba(8,145,178,.12)',  bd:'rgba(8,145,178,.25)', shadow:'rgba(8,145,178,.35)', lbl:'Sea Blue'},
-  grey:    {p:'#9ca3af',pl:'#b0b8c4',bg:'rgba(156,163,175,.12)',bd:'rgba(156,163,175,.25)',shadow:'rgba(156,163,175,.35)',lbl:'Grey'},
-  emerald: {p:'#10b981',pl:'#34d399',bg:'rgba(16,185,129,.12)', bd:'rgba(16,185,129,.25)', shadow:'rgba(16,185,129,.35)', lbl:'Emerald'},
-  rose:    {p:'#f43f5e',pl:'#fb7185',bg:'rgba(244,63,94,.12)',  bd:'rgba(244,63,94,.25)',  shadow:'rgba(244,63,94,.35)',  lbl:'Rose'},
-  indigo:  {p:'#6366f1',pl:'#818cf8',bg:'rgba(99,102,241,.12)', bd:'rgba(99,102,241,.25)', shadow:'rgba(99,102,241,.35)', lbl:'Indigo'},
-  coral:   {p:'#ff6b6b',pl:'#ff8e8e',bg:'rgba(255,107,107,.12)',bd:'rgba(255,107,107,.25)',shadow:'rgba(255,107,107,.35)',lbl:'Coral'},
-  teal:    {p:'#14b8a6',pl:'#2dd4bf',bg:'rgba(20,184,166,.12)', bd:'rgba(20,184,166,.25)', shadow:'rgba(20,184,166,.35)', lbl:'Teal'},
+const THEMES = {
+  // ── DARK ──
+  'midnight-gold':  {mode:'dark', lbl:'Midnight Gold',  accent:'#d4a843', accentDim:'rgba(212,168,67,.12)',  accentBd:'rgba(212,168,67,.25)',  shadow:'rgba(212,168,67,.4)',   bg:'#0f0f0f', bg2:'#181818', bg3:'#222',    bg4:'#2a2a2a', text:'#f0f0f0', text2:'#999', text3:'#555', border:'rgba(255,255,255,.08)', border2:'rgba(255,255,255,.14)'},
+  'ocean-deep':     {mode:'dark', lbl:'Ocean Deep',      accent:'#22d3ee', accentDim:'rgba(34,211,238,.12)',   accentBd:'rgba(34,211,238,.25)',   shadow:'rgba(34,211,238,.4)',    bg:'#080f14', bg2:'#0e1a24', bg3:'#152230', bg4:'#1c2e3e', text:'#e8f4f8', text2:'#7baab8', text3:'#3a6070', border:'rgba(34,211,238,.08)',  border2:'rgba(34,211,238,.16)'},
+  'forest':         {mode:'dark', lbl:'Forest',          accent:'#4ade80', accentDim:'rgba(74,222,128,.12)',   accentBd:'rgba(74,222,128,.25)',   shadow:'rgba(74,222,128,.4)',    bg:'#080f0a', bg2:'#0e1a10', bg3:'#152318', bg4:'#1c2e20', text:'#e8f5ec', text2:'#6aaa7a', text3:'#2a5030', border:'rgba(74,222,128,.08)',  border2:'rgba(74,222,128,.16)'},
+  'royal':          {mode:'dark', lbl:'Royal',           accent:'#a78bfa', accentDim:'rgba(167,139,250,.12)',  accentBd:'rgba(167,139,250,.25)',  shadow:'rgba(167,139,250,.4)',   bg:'#0a080f', bg2:'#120e1c', bg3:'#1a1428', bg4:'#221c34', text:'#ede8ff', text2:'#8b72cc', text3:'#3a2860', border:'rgba(167,139,250,.08)', border2:'rgba(167,139,250,.16)'},
+  'crimson':        {mode:'dark', lbl:'Crimson',         accent:'#f87171', accentDim:'rgba(248,113,113,.12)',  accentBd:'rgba(248,113,113,.25)',  shadow:'rgba(248,113,113,.4)',   bg:'#0f0808', bg2:'#1c0e0e', bg3:'#261414', bg4:'#301a1a', text:'#fde8e8', text2:'#cc7070', text3:'#6b3030', border:'rgba(248,113,113,.08)', border2:'rgba(248,113,113,.16)'},
+  'copper':         {mode:'dark', lbl:'Copper',          accent:'#c2694f', accentDim:'rgba(194,105,79,.12)',   accentBd:'rgba(194,105,79,.25)',   shadow:'rgba(194,105,79,.4)',    bg:'#0f0a08', bg2:'#1c120e', bg3:'#261a14', bg4:'#30221a', text:'#f5ede8', text2:'#a07060', text3:'#5a3830', border:'rgba(194,105,79,.08)',  border2:'rgba(194,105,79,.16)'},
+  'neon-tokyo':     {mode:'dark', lbl:'Neon Tokyo',      accent:'#00fff5', accentDim:'rgba(0,255,245,.08)',    accentBd:'rgba(0,255,245,.2)',     shadow:'rgba(0,255,245,.45)',    bg:'#050505', bg2:'#0a0a0a', bg3:'#111',    bg4:'#181818', text:'#e0fffe', text2:'#00bfb8', text3:'#006660', border:'rgba(0,255,245,.07)',   border2:'rgba(0,255,245,.15)'},
+  'lavender-night': {mode:'dark', lbl:'Lavender Night',  accent:'#c084fc', accentDim:'rgba(192,132,252,.12)',  accentBd:'rgba(192,132,252,.25)',  shadow:'rgba(192,132,252,.4)',   bg:'#0c0a0f', bg2:'#150f1e', bg3:'#1e1628', bg4:'#271e32', text:'#f0eaff', text2:'#9970cc', text3:'#4a3068', border:'rgba(192,132,252,.08)', border2:'rgba(192,132,252,.16)'},
+  'arctic':         {mode:'dark', lbl:'Arctic',          accent:'#cbd5e1', accentDim:'rgba(203,213,225,.1)',   accentBd:'rgba(203,213,225,.22)',  shadow:'rgba(203,213,225,.3)',   bg:'#08090a', bg2:'#0f1114', bg3:'#171a1e', bg4:'#1f2328', text:'#f1f5f9', text2:'#8899aa', text3:'#445566', border:'rgba(255,255,255,.07)', border2:'rgba(255,255,255,.13)'},
+  'mint-dark':      {mode:'dark', lbl:'Mint Dark',       accent:'#2dd4bf', accentDim:'rgba(45,212,191,.12)',   accentBd:'rgba(45,212,191,.25)',   shadow:'rgba(45,212,191,.4)',    bg:'#08100f', bg2:'#0e1a18', bg3:'#142420', bg4:'#1a2e2c', text:'#e8faf8', text2:'#60aaa0', text3:'#284844', border:'rgba(45,212,191,.08)',  border2:'rgba(45,212,191,.16)'},
+  // ── LIGHT ──
+  'clean-white':    {mode:'light',lbl:'Clean White',     accent:'#c49a20', accentDim:'rgba(196,154,32,.1)',    accentBd:'rgba(196,154,32,.3)',    shadow:'rgba(196,154,32,.3)',    bg:'#f9f9f9', bg2:'#ffffff', bg3:'#f0f0f0', bg4:'#e4e4e4', text:'#1a1a1a', text2:'#555',   text3:'#aaa',   border:'rgba(0,0,0,.08)',       border2:'rgba(0,0,0,.14)'},
+  'sky':            {mode:'light',lbl:'Sky',             accent:'#0284c7', accentDim:'rgba(2,132,199,.1)',     accentBd:'rgba(2,132,199,.3)',     shadow:'rgba(2,132,199,.3)',     bg:'#f0f8ff', bg2:'#ffffff', bg3:'#e6f3fb', bg4:'#cce8f6', text:'#0c2a40', text2:'#3a7090', text3:'#7aaccc', border:'rgba(2,132,199,.12)',   border2:'rgba(2,132,199,.2)'},
+  'sakura':         {mode:'light',lbl:'Sakura',          accent:'#e11d48', accentDim:'rgba(225,29,72,.1)',     accentBd:'rgba(225,29,72,.25)',    shadow:'rgba(225,29,72,.3)',     bg:'#fff5f7', bg2:'#ffffff', bg3:'#ffe8ed', bg4:'#fdd0da', text:'#3a0a14', text2:'#a04060', text3:'#cc8090', border:'rgba(225,29,72,.1)',    border2:'rgba(225,29,72,.2)'},
+  'mint-light':     {mode:'light',lbl:'Mint Light',      accent:'#059669', accentDim:'rgba(5,150,105,.1)',     accentBd:'rgba(5,150,105,.3)',     shadow:'rgba(5,150,105,.3)',     bg:'#f0fdf8', bg2:'#ffffff', bg3:'#e0f8f0', bg4:'#c0f0e0', text:'#052e20', text2:'#207050', text3:'#60a888', border:'rgba(5,150,105,.1)',    border2:'rgba(5,150,105,.2)'},
+  'lavender-day':   {mode:'light',lbl:'Lavender Day',    accent:'#7c3aed', accentDim:'rgba(124,58,237,.1)',    accentBd:'rgba(124,58,237,.25)',   shadow:'rgba(124,58,237,.3)',    bg:'#f8f5ff', bg2:'#ffffff', bg3:'#ede8ff', bg4:'#ddd0ff', text:'#1e0a40', text2:'#5a3090', text3:'#9070cc', border:'rgba(124,58,237,.1)',   border2:'rgba(124,58,237,.2)'},
+  'sunset-light':   {mode:'light',lbl:'Sunset Light',    accent:'#ea580c', accentDim:'rgba(234,88,12,.1)',     accentBd:'rgba(234,88,12,.25)',    shadow:'rgba(234,88,12,.3)',     bg:'#fff8f0', bg2:'#ffffff', bg3:'#feefd8', bg4:'#fddcb0', text:'#2a1000', text2:'#a04010', text3:'#cc8050', border:'rgba(234,88,12,.1)',    border2:'rgba(234,88,12,.2)'},
+  'forest-light':   {mode:'light',lbl:'Forest Light',    accent:'#15803d', accentDim:'rgba(21,128,61,.1)',     accentBd:'rgba(21,128,61,.25)',    shadow:'rgba(21,128,61,.3)',     bg:'#f5fdf5', bg2:'#ffffff', bg3:'#e4f8e8', bg4:'#c8f0cc', text:'#052010', text2:'#286030', text3:'#60a060', border:'rgba(21,128,61,.1)',    border2:'rgba(21,128,61,.2)'},
+  'crimson-light':  {mode:'light',lbl:'Crimson Light',   accent:'#b91c1c', accentDim:'rgba(185,28,28,.08)',    accentBd:'rgba(185,28,28,.22)',    shadow:'rgba(185,28,28,.25)',    bg:'#fdf5f5', bg2:'#ffffff', bg3:'#fce8e8', bg4:'#f8cccc', text:'#2a0808', text2:'#803030', text3:'#cc7070', border:'rgba(185,28,28,.1)',    border2:'rgba(185,28,28,.2)'},
+  'ocean-light':    {mode:'light',lbl:'Ocean Light',     accent:'#0891b2', accentDim:'rgba(8,145,178,.1)',     accentBd:'rgba(8,145,178,.25)',    shadow:'rgba(8,145,178,.3)',     bg:'#f0fbff', bg2:'#ffffff', bg3:'#e0f5fc', bg4:'#c0eaf8', text:'#032030', text2:'#206080', text3:'#60a0c0', border:'rgba(8,145,178,.1)',    border2:'rgba(8,145,178,.2)'},
+  'gold-light':     {mode:'light',lbl:'Gold Light',      accent:'#92400e', accentDim:'rgba(146,64,14,.08)',    accentBd:'rgba(146,64,14,.22)',    shadow:'rgba(146,64,14,.25)',    bg:'#fdfaf0', bg2:'#ffffff', bg3:'#fdf2d0', bg4:'#fae4a0', text:'#1c1000', text2:'#705010', text3:'#a07840', border:'rgba(146,64,14,.1)',    border2:'rgba(146,64,14,.2)'},
 };
 
 let db = {subjects:[]};
@@ -562,13 +627,13 @@ let expandedLesson = null;
 let editingLessonId = null;
 let pendingSections = [];
 let selectedEmoji = EMOJIS[0];
-let accent = 'yellow';
+let currentTheme = 'midnight-gold';
 
 function sv(){localStorage.setItem('altracker_v5',JSON.stringify(db))}
-function svPrefs(){localStorage.setItem('altracker_prefs5',JSON.stringify({accent}))}
+function svPrefs(){localStorage.setItem('altracker_prefs5',JSON.stringify({theme:currentTheme}))}
 function ld(){
   try{const r=localStorage.getItem('altracker_v5');if(r)db=JSON.parse(r)}catch(e){}
-  try{const p=localStorage.getItem('altracker_prefs5');if(p){const pr=JSON.parse(p);if(pr.accent&&ACCENTS[pr.accent])accent=pr.accent}}catch(e){}
+  try{const p=localStorage.getItem('altracker_prefs5');if(p){const pr=JSON.parse(p);if(pr.theme&&THEMES[pr.theme])currentTheme=pr.theme;}}catch(e){}
 }
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -581,15 +646,31 @@ function fdate(ts){
 }
 function daysSince(ts){return ts?Math.floor((Date.now()-ts)/86400000):999}
 
-function applyAccent(name){
-  if(!ACCENTS[name])return;
-  accent=name;
-  const a=ACCENTS[name];
+function applyTheme(name){
+  const t=THEMES[name];
+  if(!t)return;
+  currentTheme=name;
   const r=document.documentElement.style;
-  r.setProperty('--accent',a.p);
-  r.setProperty('--accent-dim',a.bg);
-  r.setProperty('--accent-bd',a.bd);
-  document.getElementById('fab').style.boxShadow='0 4px 24px '+a.shadow;
+  r.setProperty('--accent',t.accent);
+  r.setProperty('--accent-dim',t.accentDim);
+  r.setProperty('--accent-bd',t.accentBd);
+  r.setProperty('--bg',t.bg);
+  r.setProperty('--bg2',t.bg2);
+  r.setProperty('--bg3',t.bg3);
+  r.setProperty('--bg4',t.bg4);
+  r.setProperty('--text',t.text);
+  r.setProperty('--text2',t.text2);
+  r.setProperty('--text3',t.text3);
+  r.setProperty('--border',t.border);
+  r.setProperty('--border2',t.border2);
+  const fab=document.getElementById('fab');
+  if(fab){
+    fab.style.boxShadow='0 4px 24px '+t.shadow;
+    // light mode: fab text should be white for dark accents
+    fab.style.color=t.mode==='light'?'#fff':'#000';
+  }
+  const hdr=document.querySelector('.hdr');
+  if(hdr)hdr.style.background=t.bg;
   svPrefs();
 }
 
@@ -777,9 +858,15 @@ function renderSubjectDetail(){
   const ns=s.lessons.filter(l=>l.status==='ns'||!l.status).length;
   const pct=tot?Math.round(cf/tot*100):0;
 
-  // FLAT list — lessons stay in their insertion/reordered position, no jumping
-  const lessonsHtml=tot?s.lessons.map((l,idx)=>renderLessonCard(l,idx,tot)).join(''):
-    `<div class="empty-state" style="padding:32px 0">
+  // FLAT list — lessons stay in insertion order, no jumping
+  const lessonsHtml=tot?`
+    ${tot>=5?`<div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-inp" id="lesson-search" placeholder="Search lessons..." oninput="filterLessons(this.value)" autocomplete="off">
+      <button class="search-clear" id="search-clear" onclick="clearSearch()">×</button>
+    </div>`:''}
+    <div id="lessons-container">${s.lessons.map((l,idx)=>renderLessonCard(l,idx,tot)).join('')}</div>`
+  :`<div class="empty-state" style="padding:32px 0">
       <div class="empty-state-icon">📝</div>
       <h3>No lessons yet</h3>
       <p>Tap <strong>+</strong> to add your first lesson.</p>
@@ -822,7 +909,7 @@ function renderLessonCard(lesson,idx,total){
     :st==='wk'
     ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,9 5,5.5 8,7.5 12,3.5" stroke="#5b9cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
     :st==='nw'
-    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="8" stroke="${ACCENTS[accent].p}" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="10.5" r="1" fill="${ACCENTS[accent].p}"/></svg>`
+    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="8" stroke="${THEMES[currentTheme].accent}" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="10.5" r="1" fill="${THEMES[currentTheme].accent}"/></svg>`
     :'';
 
   const hasSections=lesson.sections&&lesson.sections.length>0;
@@ -1033,23 +1120,38 @@ document.getElementById('save-lesson-btn').addEventListener('click',()=>{
 
 /* ── SETTINGS ── */
 function openSettings(){
-  renderAccGrid();
+  switchStab('data');
   openMod('modal-settings');
 }
 
-function renderAccGrid(){
-  document.getElementById('acc-grid').innerHTML=Object.entries(ACCENTS).map(([k,a])=>`
-    <div class="acc-opt" onclick="setAccent('${k}')">
-      <div class="acc-swatch${accent===k?' active':''}" style="background:${a.p}" data-k="${k}"></div>
-      <span class="acc-name">${a.lbl}</span>
-    </div>`).join('');
+function switchStab(tab){
+  ['data','theme','about'].forEach(t=>{
+    document.getElementById('stab-'+t).classList.toggle('active',tab===t);
+    document.getElementById('spanel-'+t).style.display=tab===t?'block':'none';
+  });
+  if(tab==='theme')renderThemeGrid();
 }
 
-function setAccent(name){
-  accent=name;applyAccent(name);
-  document.querySelectorAll('.acc-swatch').forEach(el=>{
-    el.classList.toggle('active',el.dataset.k===name);
-  });
+function renderThemeGrid(){
+  const dark=Object.entries(THEMES).filter(([k,t])=>t.mode==='dark');
+  const light=Object.entries(THEMES).filter(([k,t])=>t.mode==='light');
+  function dots(entries){
+    return entries.map(([k,t])=>`
+      <div class="theme-dot-wrap" onclick="selectTheme('${k}')">
+        <div class="theme-dot${currentTheme===k?' active':''}" style="background:${t.accent}"></div>
+        <span class="theme-dot-name">${t.lbl}</span>
+      </div>`).join('');
+  }
+  document.getElementById('theme-grid').innerHTML=`
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Dark</div>
+    <div class="acc-grid" style="margin-bottom:18px">${dots(dark)}</div>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Light</div>
+    <div class="acc-grid">${dots(light)}</div>`;
+}
+
+function selectTheme(name){
+  applyTheme(name);
+  renderThemeGrid();
 }
 
 /* ── EXPORT / IMPORT ── */
@@ -1134,7 +1236,7 @@ self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r
 
 /* ── LIBRARY ── */
 // ↓ CHANGE THIS to your GitHub raw index URL after you set up the repo
-const LIBRARY_INDEX_URL = 'https://cdn.jsdelivr.net/gh/Damarasooriya/studytrack-library@main/library/index.json';
+const LIBRARY_INDEX_URL = 'https://cdn.jsdelivr.net/gh/damarasooriya/studytrack-library@main/library/index.json';
 
 let libCache = null; // cache fetched library so we don't re-fetch on every open
 
@@ -1154,11 +1256,11 @@ function openDownload(){
 
 /* ── UPLOAD PANEL ── */
 // ↓ Replace with your Google Form submission URL (change /viewform to /formResponse)
-const UPLOAD_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSeHhEIbO89X9J0FgZa0mxryJn0xMEjzqjKJs19u2oN5PLpPqw/formResponse';
-const UL_FIELD_NAME   ='entry.16006554'; // ↓ Replace with your field entry IDs
-const UL_FIELD_SUBJECT='entry.372782553';
-const UL_FIELD_DATA   ='entry.509012555';
-const UL_FIELD_MSG    ='entry.1742862632';
+const UPLOAD_FORM_URL='https://docs.google.com/forms/d/e/YOUR_UPLOAD_FORM_ID/formResponse';
+const UL_FIELD_NAME   ='entry.000000001'; // ↓ Replace with your field entry IDs
+const UL_FIELD_SUBJECT='entry.000000002';
+const UL_FIELD_DATA   ='entry.000000003';
+const UL_FIELD_MSG    ='entry.000000004';
 
 function populateUploadSelect(){
   const sel=document.getElementById('ul-subject-select');
@@ -1196,10 +1298,10 @@ async function submitUpload(){
 
 /* ── FEEDBACK PANEL ── */
 // ↓ Replace with your Google Form submission URL (change /viewform to /formResponse)
-const FEEDBACK_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLScRYvTrkpcyljBmcMdngLMTzlpfo3oEapPzD-qFMeVFc-5GxA/formResponse';
-const FB_FIELD_TYPE   ='entry.1002683208'; // ↓ Replace with your field entry IDs
-const FB_FIELD_MESSAGE='entry.1666369485';
-const FB_FIELD_NAME   ='entry.1275245789';
+const FEEDBACK_FORM_URL='https://docs.google.com/forms/d/e/YOUR_FEEDBACK_FORM_ID/formResponse';
+const FB_FIELD_TYPE   ='entry.000000005'; // ↓ Replace with your field entry IDs
+const FB_FIELD_MESSAGE='entry.000000006';
+const FB_FIELD_NAME   ='entry.000000007';
 
 let fbSelectedTag='Bug Report';
 function fbTagClick(el){
@@ -1310,8 +1412,34 @@ async function addFromLibrary(file, idx, cardId){
   }
 }
 
+/* ── SEARCH ── */
+function filterLessons(q){
+  const s=db.subjects.find(x=>x.id===curSubjId);
+  if(!s)return;
+  const clearBtn=document.getElementById('search-clear');
+  if(clearBtn)clearBtn.style.display=q?'block':'none';
+  const container=document.getElementById('lessons-container');
+  if(!container)return;
+  const term=q.trim().toLowerCase();
+  if(!term){
+    container.innerHTML=s.lessons.map((l,idx)=>renderLessonCard(l,idx,s.lessons.length)).join('');
+    return;
+  }
+  const filtered=s.lessons.filter(l=>l.name.toLowerCase().includes(term));
+  if(!filtered.length){
+    container.innerHTML=`<div class="no-results">No lessons match "<strong>${esc(q)}</strong>"</div>`;
+    return;
+  }
+  container.innerHTML=filtered.map((l,idx)=>renderLessonCard(l,idx,filtered.length)).join('');
+}
+
+function clearSearch(){
+  const inp=document.getElementById('lesson-search');
+  if(inp){inp.value='';filterLessons('');}
+}
+
 /* ── INIT ── */
-ld();applyAccent(accent);renderDash();
+ld();applyTheme(currentTheme);renderDash();
 // push a base state so the very first browser back press doesn't exit the app
 history.replaceState({page:'dashboard'},'');
 
