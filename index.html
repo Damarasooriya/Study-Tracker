@@ -39,8 +39,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .hdr-back{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text2);cursor:pointer;transition:color var(--tr);background:none;border:none;font-family:var(--font);padding:4px 0}
 .hdr-back:hover{color:var(--text)}
 .hdr-back svg{width:16px;height:16px}
-.settings-btn{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border2);color:var(--text2);padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font);font-size:12px;font-weight:500;transition:all var(--tr)}
-.settings-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-dim)}
+.hdr-icon-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--bg2);border:1px solid var(--border2);color:var(--text2);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--tr);flex-shrink:0;padding:0}
+.hdr-icon-btn:hover{color:var(--text);border-color:var(--accent);background:var(--accent-dim)}
+.hdr-icon-btn:active{transform:scale(.96)}
+.hdr-icon-btn svg{width:16px;height:16px}
+.settings-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--bg2);border:1px solid var(--border2);color:var(--text2);padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font);font-size:12px;font-weight:500;transition:all var(--tr)}
 .settings-btn:active{transform:scale(.96)}
 .del-subj-btn{background:none;border:none;font-size:13px;color:var(--text3);cursor:pointer;font-family:var(--font);padding:4px 0;transition:color var(--tr)}
 .del-subj-btn:hover{color:#e24b4a}
@@ -65,7 +68,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .op-pct{font-size:38px;font-weight:600;font-family:var(--mono);color:var(--cf-t);line-height:1}
 .op-sub{font-size:12px;color:var(--text3);margin-top:4px;margin-bottom:12px}
 .prog-bar{height:5px;background:var(--bg4);border-radius:99px;overflow:hidden}
-.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#1a5c35,#3dba72);transition:width .6s cubic-bezier(.4,0,.2,1)}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cf-border),var(--cf-t));transition:width .6s cubic-bezier(.4,0,.2,1)}
 
 /* STAT CARDS */
 .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
@@ -109,7 +112,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .sc-icon{font-size:22px;line-height:1}
 .pb-wrap{margin-bottom:10px}
 .pb{height:5px;background:var(--bg4);border-radius:99px;overflow:hidden}
-.pb-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#1a5c35,#3dba72);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.pb-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cf-border),var(--cf-t));transition:width .5s cubic-bezier(.4,0,.2,1)}
 .sc-meta{display:flex;align-items:center;justify-content:space-between}
 .sc-counts{display:flex;gap:8px;flex-wrap:wrap}
 .cpill{font-size:12px;padding:3px 8px;border-radius:99px;font-weight:500}
@@ -133,7 +136,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .sd-pct-big{font-size:36px;font-weight:600;font-family:var(--mono);color:var(--cf-t)}
 .sd-pct-big span{font-size:16px;font-weight:400;color:var(--text3)}
 .sd-prog-bar{height:8px;background:var(--bg4);border-radius:99px;overflow:hidden;margin:10px 0}
-.sd-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#1a5c35,#3dba72);transition:width .6s cubic-bezier(.4,0,.2,1)}
+.sd-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cf-border),var(--cf-t));transition:width .6s cubic-bezier(.4,0,.2,1)}
 .sd-prog-row{display:flex;gap:16px;margin-top:6px;flex-wrap:wrap}
 .sd-prog-item{font-size:13px;color:var(--text2)}
 .sd-prog-item strong{color:var(--text)}
@@ -176,7 +179,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .lesson-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;overflow:hidden;transition:border-color var(--tr)}
 .lesson-card.nw-card{border-color:var(--accent-bd)}
 .lesson-card.wk-card{border-color:var(--wk-border)}
-.lesson-card.cf-card{border-color:rgba(26,92,53,.4)}
+.lesson-card.cf-card{border-color:var(--cf-border)}
 .lc-top{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer}
 .lc-top:hover{background:var(--bg3)}
 .status-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:all var(--tr);background:transparent}
@@ -326,6 +329,12 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
 /* TOAST */
 .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);border:1px solid var(--border2);border-radius:99px;padding:10px 20px;font-size:14px;z-index:500;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+
+
+/* TAB PANEL ANIMATION */
+.tab-panel{animation:tabFadeIn .22s cubic-bezier(.4,0,.2,1)}
+@keyframes tabFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -333,14 +342,21 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
   <div class="hdr">
     <div class="hdr-inner">
       <div id="hdr-left"><div class="hdr-title">Study Tracker</div></div>
-      <div id="hdr-right" style="display:flex;gap:8px;align-items:center">
-        <button class="settings-btn" onclick="openDownload()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download
+      <div id="hdr-right" style="display:flex;gap:6px;align-items:center">
+        <button class="hdr-icon-btn" title="Subjects" onclick="openDownload()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         </button>
-        <button class="settings-btn" onclick="openSettings()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Settings
+        <button class="hdr-icon-btn" title="Feedback" onclick="openMod('modal-feedback')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <button class="hdr-icon-btn" title="Settings" onclick="openSettings()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button class="hdr-icon-btn" title="About" onclick="openMod('modal-about')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </button>
+        <button class="hdr-icon-btn" title="User Guide" onclick="openMod('modal-guide')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </button>
       </div>
     </div>
@@ -451,7 +467,6 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
     <div class="dl-tabs">
       <button class="dl-tab active" id="stab-data"  onclick="switchStab('data')">Data</button>
       <button class="dl-tab"        id="stab-theme" onclick="switchStab('theme')">Theme</button>
-      <button class="dl-tab"        id="stab-about" onclick="switchStab('about')">About</button>
     </div>
 
     <!-- DATA PANEL -->
@@ -476,62 +491,74 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       <div class="acc-grid" id="theme-grid"></div>
     </div>
 
-    <!-- ABOUT PANEL -->
-    <div id="spanel-about" style="display:none">
-      <!-- App info -->
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-          <span style="font-size:15px;font-weight:700">Study Tracker</span>
-          <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px;font-family:var(--mono)">v1.91</span>
-        </div>
-        <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px">Track your AL/OL subjects and lessons. Mark lessons as Not Studied, Needs Work, Working or Confident. Watch your progress grow over time.</div>
-        <div style="font-size:11px;color:var(--text3)">Made by D_amarasooriya with Claude ❤️</div>
-      </div>
-      <!-- User guide -->
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
-        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Quick Guide</div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">➕</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Add subjects</strong> — tap the + button on the dashboard. Give it a name and pick an emoji icon.</div></div>
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">📝</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Add lessons</strong> — open a subject, tap +. Add lesson name, notes, resource links and sections.</div></div>
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">🔄</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Change status</strong> — tap the circle icon on a lesson to cycle: Not Studied → Needs Work → Working → Confident.</div></div>
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">↕️</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Reorder lessons</strong> — use the ▲▼ arrows on each lesson card to move it up or down.</div></div>
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">📚</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Library</strong> — tap Download to browse and add pre-made subjects from the community library.</div></div>
-          <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">💾</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Back up data</strong> — use Export in Settings → Data. Import on any device to restore everything.</div></div>
-        </div>
-      </div>
-      <!-- Privacy -->
-      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-        <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Your Privacy</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">All data stored only on <strong style="color:var(--text)">your device</strong></span></div>
-          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No account or login required</span></div>
-          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No data sent to any server</span></div>
-          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">Works fully offline after first load</span></div>
-          <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No tracking, no ads, no analytics</span></div>
-        </div>
-      </div>
-    </div>
-
     <button class="btn-secondary" onclick="closeMod('modal-settings')" style="margin-top:16px">Close</button>
   </div>
 </div>
 
-<!-- DOWNLOAD MODAL -->
+<!-- ABOUT MODAL -->
+<div class="modal-overlay" id="modal-about">
+  <div class="modal" style="padding-bottom:28px">
+    <div class="modal-handle"></div>
+    <div class="modal-ttl" style="margin-bottom:12px">About</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <span style="font-size:15px;font-weight:700">Study Tracker</span>
+        <span style="font-size:11px;color:var(--text3);background:var(--bg4);padding:2px 8px;border-radius:99px;font-family:var(--mono)">v1.6</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:8px">Track your AL/OL subjects and lessons. Mark lessons as Not Studied, Needs Work, Working or Confident. Watch your progress grow over time.</div>
+      <div style="font-size:11px;color:var(--text3)">Made by D_amarasooriya with Claude ❤️</div>
+    </div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Your Privacy</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">All data stored only on <strong style="color:var(--text)">your device</strong></span></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No account or login required</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">No data sent to any server</span></div>
+        <div style="display:flex;gap:8px;align-items:center"><span style="color:var(--cf-t);font-size:14px">✓</span><span style="font-size:12px;color:var(--text2)">Works fully offline after first load</span></div>
+      </div>
+    </div>
+    <button class="btn-secondary" onclick="closeMod('modal-about')" style="margin-top:16px">Close</button>
+  </div>
+</div>
+
+<!-- GUIDE MODAL -->
+<div class="modal-overlay" id="modal-guide">
+  <div class="modal" style="padding-bottom:28px">
+    <div class="modal-handle"></div>
+    <div class="modal-ttl" style="margin-bottom:12px">User Guide</div>
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">🚀</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Getting Started</strong><br>Welcome to Study Tracker! This app helps you organize your study sessions, track confidence levels, and prepare for exams. Start by adding a subject on the main screen.</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">📚</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Subjects & Lessons</strong><br>Once you create a subject, open it to add your lessons. You can split lessons into sections, add notes, and save resource links. Everything is kept neatly in one place.</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">🔄</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Tracking Confidence</strong><br>Tap the circle icon next to any lesson to mark your confidence level. It cycles through: Not Studied → Needs Work → Working → Confident.</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">☁️</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Subject Library</strong><br>Click the cloud icon in the top right to download fully structured subjects made by other students, or share your own!</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><span style="font-size:16px;flex-shrink:0">💾</span><div style="font-size:12px;color:var(--text2);line-height:1.5"><strong style="color:var(--text)">Data & Privacy</strong><br>Your data never leaves your device. If you switch phones, open Settings (⚙️) to Export your data, then Import it on your new device.</div></div>
+      </div>
+    </div>
+    <button class="btn-secondary" onclick="closeMod('modal-guide')" style="margin-top:16px">Got it!</button>
+  </div>
+</div>
+
+<!-- DOWNLOAD MODAL (Subject Library) -->
 <div class="modal-overlay" id="modal-download">
   <div class="modal" style="padding-bottom:28px">
     <div class="modal-handle"></div>
-    <div class="modal-ttl" style="margin-bottom:12px">Community</div>
+    <div class="modal-ttl" style="margin-bottom:12px">Subjects</div>
 
     <!-- TABS -->
     <div class="dl-tabs">
-      <button class="dl-tab active" id="dltab-lib"    onclick="switchDlTab('lib')">Library</button>
-      <button class="dl-tab"        id="dltab-upload" onclick="switchDlTab('upload')">Upload</button>
-      <button class="dl-tab"        id="dltab-fb"     onclick="switchDlTab('fb')">Feedback</button>
+      <button class="dl-tab active" id="dltab-lib"    onclick="switchDlTab('lib')">Subject Library</button>
+      <button class="dl-tab"        id="dltab-upload" onclick="switchDlTab('upload')">Subject Upload</button>
     </div>
 
     <!-- LIBRARY PANEL -->
     <div id="dl-panel-lib">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:14px">Tap a subject to add it to your app instantly.</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:12px">Tap a subject to add it to your app instantly.</div>
+      <div class="search-wrap" style="margin-bottom:12px">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input class="search-inp" id="lib-search" placeholder="Search by name or tag..." oninput="filterLibrary(this.value)" autocomplete="off">
+        <button class="search-clear" id="lib-search-clear" onclick="clearLibSearch()">×</button>
+      </div>
       <div id="lib-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
         <div class="lib-loading">Loading library...</div>
       </div>
@@ -559,28 +586,34 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       <button class="btn-primary" onclick="submitUpload()">Submit for Review</button>
       <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
     </div>
+  </div>
+</div>
 
-    <!-- FEEDBACK PANEL -->
-    <div id="dl-panel-fb" style="display:none">
-      <div class="form-field">
-        <label class="form-lbl">Type</label>
-        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:2px">
-          <span class="fb-tag sel" onclick="fbTagClick(this)">Bug Report</span>
-          <span class="fb-tag"    onclick="fbTagClick(this)">Suggestion</span>
-          <span class="fb-tag"    onclick="fbTagClick(this)">Question</span>
-          <span class="fb-tag"    onclick="fbTagClick(this)">Other</span>
-        </div>
+<!-- FEEDBACK MODAL -->
+<div class="modal-overlay" id="modal-feedback">
+  <div class="modal" style="padding-bottom:28px">
+    <div class="modal-handle"></div>
+    <div class="modal-ttl" style="margin-bottom:12px">Feedback</div>
+    <div class="form-field">
+      <label class="form-lbl">Type</label>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:2px">
+        <span class="fb-tag sel" onclick="fbTagClick(this)">Bug Report</span>
+        <span class="fb-tag"    onclick="fbTagClick(this)">Suggestion</span>
+        <span class="fb-tag"    onclick="fbTagClick(this)">Question</span>
+        <span class="fb-tag"    onclick="fbTagClick(this)">Other</span>
       </div>
-      <div class="form-field">
-        <label class="form-lbl">Your Message</label>
-        <textarea class="form-inp" id="fb-message" placeholder="Describe your feedback..." style="min-height:100px"></textarea>
-      </div>
-      <div class="form-field">
-        <label class="form-lbl">Your Name <span>(optional)</span></label>
-        <input type="text" class="form-inp" id="fb-name" placeholder="Anonymous">
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.5">Feedback goes directly to the developer. No personal data is collected.</div>
-      <button class="btn-primary" onclick="submitFeedback()">Send Feedback</button>
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Your Message</label>
+      <textarea class="form-inp" id="fb-message" placeholder="Describe your feedback..." style="min-height:100px"></textarea>
+    </div>
+    <div class="form-field">
+      <label class="form-lbl">Your Name <span>(optional)</span></label>
+      <input type="text" class="form-inp" id="fb-name" placeholder="Anonymous">
+    </div>
+    <div style="font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.5">Feedback goes directly to the developer. No personal data is collected.</div>
+    <button class="btn-primary" onclick="submitFeedback()">Send Feedback</button>
+    <button class="btn-secondary" onclick="closeMod('modal-feedback')" style="margin-top:8px">Cancel</button>
       <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
     </div>
 
@@ -599,26 +632,12 @@ const STATUS_LABEL = {'ns':'Not studied','nw':'Needs work','wk':'Working','cf':'
 const THEMES = {
   // ── DARK ──
   'midnight-gold':  {mode:'dark', lbl:'Midnight Gold',  accent:'#d4a843', accentDim:'rgba(212,168,67,.12)',  accentBd:'rgba(212,168,67,.25)',  shadow:'rgba(212,168,67,.4)',   bg:'#0f0f0f', bg2:'#181818', bg3:'#222',    bg4:'#2a2a2a', text:'#f0f0f0', text2:'#999', text3:'#555', border:'rgba(255,255,255,.08)', border2:'rgba(255,255,255,.14)'},
-  'ocean-deep':     {mode:'dark', lbl:'Ocean Deep',      accent:'#22d3ee', accentDim:'rgba(34,211,238,.12)',   accentBd:'rgba(34,211,238,.25)',   shadow:'rgba(34,211,238,.4)',    bg:'#080f14', bg2:'#0e1a24', bg3:'#152230', bg4:'#1c2e3e', text:'#e8f4f8', text2:'#7baab8', text3:'#3a6070', border:'rgba(34,211,238,.08)',  border2:'rgba(34,211,238,.16)'},
-  'forest':         {mode:'dark', lbl:'Forest',          accent:'#4ade80', accentDim:'rgba(74,222,128,.12)',   accentBd:'rgba(74,222,128,.25)',   shadow:'rgba(74,222,128,.4)',    bg:'#080f0a', bg2:'#0e1a10', bg3:'#152318', bg4:'#1c2e20', text:'#e8f5ec', text2:'#6aaa7a', text3:'#2a5030', border:'rgba(74,222,128,.08)',  border2:'rgba(74,222,128,.16)'},
-  'royal':          {mode:'dark', lbl:'Royal',           accent:'#a78bfa', accentDim:'rgba(167,139,250,.12)',  accentBd:'rgba(167,139,250,.25)',  shadow:'rgba(167,139,250,.4)',   bg:'#0a080f', bg2:'#120e1c', bg3:'#1a1428', bg4:'#221c34', text:'#ede8ff', text2:'#8b72cc', text3:'#3a2860', border:'rgba(167,139,250,.08)', border2:'rgba(167,139,250,.16)'},
+  'ocean-deep':     {mode:'dark', lbl:'Ocean Deep',      accent:'#22d3ee', accentDim:'rgba(34,211,238,.12)',   accentBd:'rgba(34,211,238,.25)',   shadow:'rgba(34,211,238,.4)',    bg:'#080f14', bg2:'#0e1a24', bg3:'#152230', bg4:'#1c2e3e', text:'#e8f4f8', text2:'#7baab8', text3:'#3a6070', border:'rgba(34,211,238,.08)',  border2:'rgba(34,211,238,.16)', wkBg:'#151024', wkb:'#3a2860', wkT:'#a78bfa'},
+  'forest':         {mode:'dark', lbl:'Forest',          accent:'#4ade80', accentDim:'rgba(74,222,128,.12)',   accentBd:'rgba(74,222,128,.25)',   shadow:'rgba(74,222,128,.4)',    bg:'#080f0a', bg2:'#0e1a10', bg3:'#152318', bg4:'#1c2e20', text:'#e8f5ec', text2:'#6aaa7a', text3:'#2a5030', border:'rgba(74,222,128,.08)',  border2:'rgba(74,222,128,.16)', cfBg:'#0a1f26', cfb:'#1c4e6e', cfT:'#22d3ee'},
   'crimson':        {mode:'dark', lbl:'Crimson',         accent:'#f87171', accentDim:'rgba(248,113,113,.12)',  accentBd:'rgba(248,113,113,.25)',  shadow:'rgba(248,113,113,.4)',   bg:'#0f0808', bg2:'#1c0e0e', bg3:'#261414', bg4:'#301a1a', text:'#fde8e8', text2:'#cc7070', text3:'#6b3030', border:'rgba(248,113,113,.08)', border2:'rgba(248,113,113,.16)'},
   'copper':         {mode:'dark', lbl:'Copper',          accent:'#c2694f', accentDim:'rgba(194,105,79,.12)',   accentBd:'rgba(194,105,79,.25)',   shadow:'rgba(194,105,79,.4)',    bg:'#0f0a08', bg2:'#1c120e', bg3:'#261a14', bg4:'#30221a', text:'#f5ede8', text2:'#a07060', text3:'#5a3830', border:'rgba(194,105,79,.08)',  border2:'rgba(194,105,79,.16)'},
   'neon-tokyo':     {mode:'dark', lbl:'Neon Tokyo',      accent:'#00fff5', accentDim:'rgba(0,255,245,.08)',    accentBd:'rgba(0,255,245,.2)',     shadow:'rgba(0,255,245,.45)',    bg:'#050505', bg2:'#0a0a0a', bg3:'#111',    bg4:'#181818', text:'#e0fffe', text2:'#00bfb8', text3:'#006660', border:'rgba(0,255,245,.07)',   border2:'rgba(0,255,245,.15)'},
-  'lavender-night': {mode:'dark', lbl:'Lavender Night',  accent:'#c084fc', accentDim:'rgba(192,132,252,.12)',  accentBd:'rgba(192,132,252,.25)',  shadow:'rgba(192,132,252,.4)',   bg:'#0c0a0f', bg2:'#150f1e', bg3:'#1e1628', bg4:'#271e32', text:'#f0eaff', text2:'#9970cc', text3:'#4a3068', border:'rgba(192,132,252,.08)', border2:'rgba(192,132,252,.16)'},
   'arctic':         {mode:'dark', lbl:'Arctic',          accent:'#cbd5e1', accentDim:'rgba(203,213,225,.1)',   accentBd:'rgba(203,213,225,.22)',  shadow:'rgba(203,213,225,.3)',   bg:'#08090a', bg2:'#0f1114', bg3:'#171a1e', bg4:'#1f2328', text:'#f1f5f9', text2:'#8899aa', text3:'#445566', border:'rgba(255,255,255,.07)', border2:'rgba(255,255,255,.13)'},
-  'mint-dark':      {mode:'dark', lbl:'Mint Dark',       accent:'#2dd4bf', accentDim:'rgba(45,212,191,.12)',   accentBd:'rgba(45,212,191,.25)',   shadow:'rgba(45,212,191,.4)',    bg:'#08100f', bg2:'#0e1a18', bg3:'#142420', bg4:'#1a2e2c', text:'#e8faf8', text2:'#60aaa0', text3:'#284844', border:'rgba(45,212,191,.08)',  border2:'rgba(45,212,191,.16)'},
-  // ── LIGHT ──
-  'clean-white':    {mode:'light',lbl:'Clean White',     accent:'#c49a20', accentDim:'rgba(196,154,32,.1)',    accentBd:'rgba(196,154,32,.3)',    shadow:'rgba(196,154,32,.3)',    bg:'#f9f9f9', bg2:'#ffffff', bg3:'#f0f0f0', bg4:'#e4e4e4', text:'#1a1a1a', text2:'#555',   text3:'#aaa',   border:'rgba(0,0,0,.08)',       border2:'rgba(0,0,0,.14)'},
-  'sky':            {mode:'light',lbl:'Sky',             accent:'#0284c7', accentDim:'rgba(2,132,199,.1)',     accentBd:'rgba(2,132,199,.3)',     shadow:'rgba(2,132,199,.3)',     bg:'#f0f8ff', bg2:'#ffffff', bg3:'#e6f3fb', bg4:'#cce8f6', text:'#0c2a40', text2:'#3a7090', text3:'#7aaccc', border:'rgba(2,132,199,.12)',   border2:'rgba(2,132,199,.2)'},
-  'sakura':         {mode:'light',lbl:'Sakura',          accent:'#e11d48', accentDim:'rgba(225,29,72,.1)',     accentBd:'rgba(225,29,72,.25)',    shadow:'rgba(225,29,72,.3)',     bg:'#fff5f7', bg2:'#ffffff', bg3:'#ffe8ed', bg4:'#fdd0da', text:'#3a0a14', text2:'#a04060', text3:'#cc8090', border:'rgba(225,29,72,.1)',    border2:'rgba(225,29,72,.2)'},
-  'mint-light':     {mode:'light',lbl:'Mint Light',      accent:'#059669', accentDim:'rgba(5,150,105,.1)',     accentBd:'rgba(5,150,105,.3)',     shadow:'rgba(5,150,105,.3)',     bg:'#f0fdf8', bg2:'#ffffff', bg3:'#e0f8f0', bg4:'#c0f0e0', text:'#052e20', text2:'#207050', text3:'#60a888', border:'rgba(5,150,105,.1)',    border2:'rgba(5,150,105,.2)'},
-  'lavender-day':   {mode:'light',lbl:'Lavender Day',    accent:'#7c3aed', accentDim:'rgba(124,58,237,.1)',    accentBd:'rgba(124,58,237,.25)',   shadow:'rgba(124,58,237,.3)',    bg:'#f8f5ff', bg2:'#ffffff', bg3:'#ede8ff', bg4:'#ddd0ff', text:'#1e0a40', text2:'#5a3090', text3:'#9070cc', border:'rgba(124,58,237,.1)',   border2:'rgba(124,58,237,.2)'},
-  'sunset-light':   {mode:'light',lbl:'Sunset Light',    accent:'#ea580c', accentDim:'rgba(234,88,12,.1)',     accentBd:'rgba(234,88,12,.25)',    shadow:'rgba(234,88,12,.3)',     bg:'#fff8f0', bg2:'#ffffff', bg3:'#feefd8', bg4:'#fddcb0', text:'#2a1000', text2:'#a04010', text3:'#cc8050', border:'rgba(234,88,12,.1)',    border2:'rgba(234,88,12,.2)'},
-  'forest-light':   {mode:'light',lbl:'Forest Light',    accent:'#15803d', accentDim:'rgba(21,128,61,.1)',     accentBd:'rgba(21,128,61,.25)',    shadow:'rgba(21,128,61,.3)',     bg:'#f5fdf5', bg2:'#ffffff', bg3:'#e4f8e8', bg4:'#c8f0cc', text:'#052010', text2:'#286030', text3:'#60a060', border:'rgba(21,128,61,.1)',    border2:'rgba(21,128,61,.2)'},
-  'crimson-light':  {mode:'light',lbl:'Crimson Light',   accent:'#b91c1c', accentDim:'rgba(185,28,28,.08)',    accentBd:'rgba(185,28,28,.22)',    shadow:'rgba(185,28,28,.25)',    bg:'#fdf5f5', bg2:'#ffffff', bg3:'#fce8e8', bg4:'#f8cccc', text:'#2a0808', text2:'#803030', text3:'#cc7070', border:'rgba(185,28,28,.1)',    border2:'rgba(185,28,28,.2)'},
-  'ocean-light':    {mode:'light',lbl:'Ocean Light',     accent:'#0891b2', accentDim:'rgba(8,145,178,.1)',     accentBd:'rgba(8,145,178,.25)',    shadow:'rgba(8,145,178,.3)',     bg:'#f0fbff', bg2:'#ffffff', bg3:'#e0f5fc', bg4:'#c0eaf8', text:'#032030', text2:'#206080', text3:'#60a0c0', border:'rgba(8,145,178,.1)',    border2:'rgba(8,145,178,.2)'},
-  'gold-light':     {mode:'light',lbl:'Gold Light',      accent:'#92400e', accentDim:'rgba(146,64,14,.08)',    accentBd:'rgba(146,64,14,.22)',    shadow:'rgba(146,64,14,.25)',    bg:'#fdfaf0', bg2:'#ffffff', bg3:'#fdf2d0', bg4:'#fae4a0', text:'#1c1000', text2:'#705010', text3:'#a07840', border:'rgba(146,64,14,.1)',    border2:'rgba(146,64,14,.2)'},
 };
 
 let db = {subjects:[]};
@@ -663,6 +682,14 @@ function applyTheme(name){
   r.setProperty('--text3',t.text3);
   r.setProperty('--border',t.border);
   r.setProperty('--border2',t.border2);
+  
+  r.setProperty('--wk-bg', t.wkBg || '#0e1a2d');
+  r.setProperty('--wk-border', t.wkb || '#1e4080');
+  r.setProperty('--wk-t', t.wkT || '#5b9cf6');
+  r.setProperty('--cf-bg', t.cfBg || '#0f2218');
+  r.setProperty('--cf-border', t.cfb || '#1a5c35');
+  r.setProperty('--cf-t', t.cfT || '#3dba72');
+
   const fab=document.getElementById('fab');
   if(fab){
     fab.style.boxShadow='0 4px 24px '+t.shadow;
@@ -806,15 +833,22 @@ function goBack(){
   curSubjId=null;expandedLesson=null;
   document.getElementById('view-subj').classList.remove('active');
   document.getElementById('view-dash').classList.add('active');
-  document.getElementById('hdr-left').innerHTML='<div class="hdr-title">AL Study Tracker</div>';
+  document.getElementById('hdr-left').innerHTML='<div class="hdr-title">Study Tracker</div>';
   document.getElementById('hdr-right').innerHTML=`<div style="display:flex;gap:8px;align-items:center">
-    <button class="settings-btn" onclick="openDownload()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download
+    <button class="hdr-icon-btn" title="Subjects" onclick="openDownload()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
     </button>
-    <button class="settings-btn" onclick="openSettings()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      Settings
+    <button class="hdr-icon-btn" title="Feedback" onclick="openMod('modal-feedback')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <button class="hdr-icon-btn" title="Settings" onclick="openSettings()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <button class="hdr-icon-btn" title="About" onclick="openMod('modal-about')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </button>
+    <button class="hdr-icon-btn" title="User Guide" onclick="openMod('modal-guide')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
     </button>
   </div>`;
   renderDash();
@@ -905,11 +939,11 @@ function renderLessonCard(lesson,idx,total){
   const meta=STATUS_LABEL[st]+' '+lastStudied;
 
   const statusIconSvg=st==='cf'
-    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,7 5.5,10.5 12,3.5" stroke="#3dba72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,7 5.5,10.5 12,3.5" stroke="var(--cf-t)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
     :st==='wk'
-    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,9 5,5.5 8,7.5 12,3.5" stroke="#5b9cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><polyline points="2,9 5,5.5 8,7.5 12,3.5" stroke="var(--wk-t)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
     :st==='nw'
-    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="8" stroke="${THEMES[currentTheme].accent}" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="10.5" r="1" fill="${THEMES[currentTheme].accent}"/></svg>`
+    ?`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/><circle cx="7" cy="10.5" r="1" fill="var(--accent)"/></svg>`
     :'';
 
   const hasSections=lesson.sections&&lesson.sections.length>0;
@@ -1125,28 +1159,24 @@ function openSettings(){
 }
 
 function switchStab(tab){
-  ['data','theme','about'].forEach(t=>{
+  ['data','theme'].forEach(t=>{
     document.getElementById('stab-'+t).classList.toggle('active',tab===t);
-    document.getElementById('spanel-'+t).style.display=tab===t?'block':'none';
+    const p=document.getElementById('spanel-'+t);
+    p.style.display=tab===t?'block':'none';
+    if(tab===t){p.classList.remove('tab-panel');void p.offsetWidth;p.classList.add('tab-panel');}
   });
   if(tab==='theme')renderThemeGrid();
 }
 
 function renderThemeGrid(){
-  const dark=Object.entries(THEMES).filter(([k,t])=>t.mode==='dark');
-  const light=Object.entries(THEMES).filter(([k,t])=>t.mode==='light');
-  function dots(entries){
-    return entries.map(([k,t])=>`
+  document.getElementById('theme-grid').innerHTML=
+    '<div class="acc-grid">'+
+    Object.entries(THEMES).map(([k,t])=>`
       <div class="theme-dot-wrap" onclick="selectTheme('${k}')">
         <div class="theme-dot${currentTheme===k?' active':''}" style="background:${t.accent}"></div>
         <span class="theme-dot-name">${t.lbl}</span>
-      </div>`).join('');
-  }
-  document.getElementById('theme-grid').innerHTML=`
-    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Dark</div>
-    <div class="acc-grid" style="margin-bottom:18px">${dots(dark)}</div>
-    <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Light</div>
-    <div class="acc-grid">${dots(light)}</div>`;
+      </div>`).join('')+
+    '</div>';
 }
 
 function selectTheme(name){
@@ -1241,9 +1271,11 @@ const LIBRARY_INDEX_URL = 'https://cdn.jsdelivr.net/gh/damarasooriya/studytrack-
 let libCache = null; // cache fetched library so we don't re-fetch on every open
 
 function switchDlTab(tab){
-  ['lib','upload','fb'].forEach(t=>{
+  ['lib','upload'].forEach(t=>{
     document.getElementById('dltab-'+t).classList.toggle('active',tab===t);
-    document.getElementById('dl-panel-'+t).style.display=tab===t?'block':'none';
+    const p=document.getElementById('dl-panel-'+t);
+    p.style.display=tab===t?'block':'none';
+    if(tab===t){p.classList.remove('tab-panel');void p.offsetWidth;p.classList.add('tab-panel');}
   });
   if(tab==='lib')fetchLibrary();
   if(tab==='upload')populateUploadSelect();
@@ -1251,6 +1283,8 @@ function switchDlTab(tab){
 
 function openDownload(){
   switchDlTab('lib');
+  const inp=document.getElementById('lib-search');
+  if(inp){inp.value='';const cb=document.getElementById('lib-search-clear');if(cb)cb.style.display='none';}
   openMod('modal-download');
 }
 
@@ -1332,7 +1366,7 @@ async function submitFeedback(){
   }catch(e){}
   document.getElementById('fb-message').value='';
   document.getElementById('fb-name').value='';
-  closeMod('modal-download');
+  closeMod('modal-feedback');
   showToast('Feedback sent. Thank you!');
 }
 
@@ -1354,28 +1388,53 @@ async function fetchLibrary(){
   }
 }
 
-function renderLibrary(index){
+function renderLibrary(index,filter){
   const listEl=document.getElementById('lib-list');
   if(!index||!index.subjects||!index.subjects.length){
     listEl.innerHTML='<div class="lib-loading">No subjects in the library yet.</div>';
     return;
   }
   const existingNames=new Set(db.subjects.map(s=>s.name.trim().toLowerCase()));
-  listEl.innerHTML=index.subjects.map((item,idx)=>{
+  let subjects=index.subjects;
+  if(filter){
+    const q=filter.trim().toLowerCase();
+    subjects=subjects.filter(item=>
+      (item.name||'').toLowerCase().includes(q)||
+      (item.tag||'').toLowerCase().includes(q)||
+      (item.category||'').toLowerCase().includes(q)
+    );
+  }
+  if(!subjects.length){
+    listEl.innerHTML='<div class="lib-loading">No subjects match your search.</div>';
+    return;
+  }
+  listEl.innerHTML=subjects.map((item,idx)=>{
     const already=existingNames.has((item.name||'').trim().toLowerCase());
-    const fileId=item.file||idx;
-    return`<div class="lib-card${already?' added':''}" id="libcard-${idx}">
+    const realIdx=index.subjects.indexOf(item);
+    const tag=item.tag||item.category||'';
+    return`<div class="lib-card${already?' added':''}" id="libcard-${realIdx}">
       <div class="lib-card-info">
         <div class="lib-name">${esc(item.emoji||'📚')} ${esc(item.name)}</div>
-        <div class="lib-cnt">${item.lessonCount||'?'} lessons</div>
+        <div class="lib-cnt">${item.lessonCount||'?'} lessons${tag?' · <span style="color:var(--accent);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">'+esc(tag)+'</span>':''}</div>
       </div>
       <button class="lib-add-btn${already?' done':''}"
-        onclick="addFromLibrary('${item.file||''}',${idx},'libcard-${idx}')"
+        onclick="addFromLibrary('${item.file||''}',${realIdx},'libcard-${realIdx}')"
         ${already?'disabled':''}>
         ${already?'Added':'+ Add'}
       </button>
     </div>`;
   }).join('');
+}
+
+function filterLibrary(q){
+  const clearBtn=document.getElementById('lib-search-clear');
+  if(clearBtn)clearBtn.style.display=q?'block':'none';
+  if(libCache)renderLibrary(libCache,q);
+}
+
+function clearLibSearch(){
+  const inp=document.getElementById('lib-search');
+  if(inp){inp.value='';filterLibrary('');}
 }
 
 async function addFromLibrary(file, idx, cardId){
@@ -1438,6 +1497,7 @@ function clearSearch(){
   if(inp){inp.value='';filterLessons('');}
 }
 
+/* ── BUTTON TICKERS ── */
 /* ── INIT ── */
 ld();applyTheme(currentTheme);renderDash();
 // push a base state so the very first browser back press doesn't exit the app
