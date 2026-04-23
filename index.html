@@ -349,14 +349,14 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
         <button class="hdr-icon-btn" title="Feedback" onclick="openMod('modal-feedback')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </button>
-        <button class="hdr-icon-btn" title="Settings" onclick="openSettings()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <button class="hdr-icon-btn" title="User Guide" onclick="openMod('modal-guide')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </button>
         <button class="hdr-icon-btn" title="About" onclick="openMod('modal-about')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
         </button>
-        <button class="hdr-icon-btn" title="User Guide" onclick="openMod('modal-guide')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <button class="hdr-icon-btn" title="Settings" onclick="openSettings()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </button>
       </div>
     </div>
@@ -462,35 +462,10 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
   <div class="modal" style="padding-bottom:28px">
     <div class="modal-handle"></div>
     <div class="modal-ttl" style="margin-bottom:12px">Settings</div>
-
-    <!-- TABS -->
-    <div class="dl-tabs">
-      <button class="dl-tab active" id="stab-data"  onclick="switchStab('data')">Data</button>
-      <button class="dl-tab"        id="stab-theme" onclick="switchStab('theme')">Theme</button>
-    </div>
-
-    <!-- DATA PANEL -->
-    <div id="spanel-data">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Manage your study data. Export to back up everything. Import to restore or merge from another device.</div>
-      <div class="io-row" style="margin-bottom:10px">
-        <button class="btn-primary" onclick="exportData()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Export All
-        </button>
-        <button class="btn-secondary" onclick="document.getElementById('import-file').click()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Import
-        </button>
-      </div>
-      <div class="io-hint" style="margin-bottom:0">Export saves all subjects and lessons as a .json file. Import merges subjects without replacing existing data. Use this to transfer data between devices.</div>
-    </div>
-
-    <!-- THEME PANEL -->
-    <div id="spanel-theme" style="display:none">
+    <div id="spanel-theme">
       <div style="font-size:13px;color:var(--text2);margin-bottom:16px">Choose a theme. Changes colours across the whole app.</div>
       <div class="acc-grid" id="theme-grid"></div>
     </div>
-
     <button class="btn-secondary" onclick="closeMod('modal-settings')" style="margin-top:16px">Close</button>
   </div>
 </div>
@@ -546,9 +521,11 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
     <div class="modal-ttl" style="margin-bottom:12px">Subjects</div>
 
     <!-- TABS -->
-    <div class="dl-tabs">
-      <button class="dl-tab active" id="dltab-lib"    onclick="switchDlTab('lib')">Subject Library</button>
-      <button class="dl-tab"        id="dltab-upload" onclick="switchDlTab('upload')">Subject Upload</button>
+    <div class="dl-tabs" style="grid-template-columns:repeat(4,1fr)">
+      <button class="dl-tab active" id="dltab-lib"    onclick="switchDlTab('lib')">Library</button>
+      <button class="dl-tab"        id="dltab-import" onclick="switchDlTab('import')">Import</button>
+      <button class="dl-tab"        id="dltab-export" onclick="switchDlTab('export')">Export</button>
+      <button class="dl-tab"        id="dltab-upload" onclick="switchDlTab('upload')">Upload</button>
     </div>
 
     <!-- LIBRARY PANEL -->
@@ -565,14 +542,42 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       <button class="btn-secondary" onclick="closeMod('modal-download')">Close</button>
     </div>
 
+    <!-- IMPORT PANEL -->
+    <div id="dl-panel-import" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Import a previously exported <strong style="color:var(--text)">.json</strong> file. Subjects and lessons will be merged without replacing your existing data.</div>
+      <button class="btn-primary" style="margin-bottom:10px" onclick="document.getElementById('import-file').click()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Import File
+      </button>
+      <div class="io-hint" style="margin-bottom:16px">Existing lessons and subjects will never be overwritten. Only new data is added.</div>
+      <button class="btn-secondary" onclick="closeMod('modal-download')">Close</button>
+    </div>
+
+    <!-- EXPORT PANEL -->
+    <div id="dl-panel-export" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Export all your subjects and lessons as a <strong style="color:var(--text)">.json</strong> file. Use this to back up or transfer to another device.</div>
+      <button class="btn-primary" style="margin-bottom:10px" onclick="exportData()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Export All
+      </button>
+      <div class="io-hint" style="margin-bottom:16px">Saves all subjects as a single .json file. Import it on any device to restore everything.</div>
+      <button class="btn-secondary" onclick="closeMod('modal-download')">Close</button>
+    </div>
+
     <!-- UPLOAD PANEL -->
     <div id="dl-panel-upload" style="display:none">
-      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">
-        Submit your subject to be reviewed and added to the public library. After my approval it will appear for all users.
-      </div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.6">Submit your subject to be reviewed and added to the public library. After my approval it will appear for all users.</div>
       <div class="form-field">
         <label class="form-lbl">Your Name <span>(optional)</span></label>
         <input type="text" class="form-inp" id="ul-name" placeholder="e.g. Kasun">
+      </div>
+      <div class="form-field">
+        <label class="form-lbl">Grade / Year <span>(optional)</span></label>
+        <input type="text" class="form-inp" id="ul-grade" placeholder="e.g. Grade 13, A/L 2025">
+      </div>
+      <div class="form-field">
+        <label class="form-lbl">Country <span>(optional)</span></label>
+        <input type="text" class="form-inp" id="ul-country" placeholder="e.g. Sri Lanka">
       </div>
       <div class="form-field">
         <label class="form-lbl">Select Subject</label>
@@ -584,7 +589,7 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
       </div>
       <div style="font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.6">Only lesson names and structure are shared — no personal data.</div>
       <button class="btn-primary" onclick="submitUpload()">Submit for Review</button>
-      <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
+      <button class="btn-secondary" onclick="closeMod('modal-download')" style="margin-top:8px">Cancel</button>
     </div>
   </div>
 </div>
@@ -614,9 +619,6 @@ textarea.form-inp{resize:vertical;min-height:80px;line-height:1.5}
     <div style="font-size:11px;color:var(--text3);margin-bottom:14px;line-height:1.5">Feedback goes directly to the developer. No personal data is collected.</div>
     <button class="btn-primary" onclick="submitFeedback()">Send Feedback</button>
     <button class="btn-secondary" onclick="closeMod('modal-feedback')" style="margin-top:8px">Cancel</button>
-      <button class="btn-secondary" onclick="closeMod('modal-download')">Cancel</button>
-    </div>
-
   </div>
 </div>
 
@@ -646,7 +648,7 @@ let expandedLesson = null;
 let editingLessonId = null;
 let pendingSections = [];
 let selectedEmoji = EMOJIS[0];
-let currentTheme = 'midnight-gold';
+let currentTheme = 'arctic';
 
 function sv(){localStorage.setItem('altracker_v5',JSON.stringify(db))}
 function svPrefs(){localStorage.setItem('altracker_prefs5',JSON.stringify({theme:currentTheme}))}
@@ -1154,7 +1156,7 @@ document.getElementById('save-lesson-btn').addEventListener('click',()=>{
 
 /* ── SETTINGS ── */
 function openSettings(){
-  switchStab('data');
+  renderThemeGrid();
   openMod('modal-settings');
 }
 
@@ -1267,11 +1269,13 @@ self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r
 /* ── LIBRARY ── */
 // ↓ CHANGE THIS to your GitHub raw index URL after you set up the repo
 const LIBRARY_INDEX_URL = 'https://raw.githubusercontent.com/damarasooriya/studytrack-library/main/library/index.json';
+let _lastLibIndex = null; // holds current session's fetched index for search filtering
+
 
 
 
 function switchDlTab(tab){
-  ['lib','upload'].forEach(t=>{
+  ['lib','import','export','upload'].forEach(t=>{
     document.getElementById('dltab-'+t).classList.toggle('active',tab===t);
     const p=document.getElementById('dl-panel-'+t);
     p.style.display=tab===t?'block':'none';
@@ -1287,14 +1291,15 @@ function openDownload(){
   if(inp){inp.value='';const cb=document.getElementById('lib-search-clear');if(cb)cb.style.display='none';}
   openMod('modal-download');
 }
-
 /* ── UPLOAD PANEL ── */
-// ↓ Replace with your Google Form submission URL (change /viewform to /formResponse)
 const UPLOAD_FORM_URL='https://docs.google.com/forms/d/e/1FAIpQLSeHhEIbO89X9J0FgZa0mxryJn0xMEjzqjKJs19u2oN5PLpPqw/formResponse';
-const UL_FIELD_NAME   ='entry.16006554'; // ↓ Replace with your field entry IDs
+const UL_FIELD_NAME   ='entry.16006554';
 const UL_FIELD_SUBJECT='entry.372782553';
 const UL_FIELD_DATA   ='entry.509012555';
 const UL_FIELD_MSG    ='entry.1742862632';
+// Add these two new field IDs to your Google Form and update below:
+const UL_FIELD_GRADE  ='entry.000000010'; // ← replace with real entry ID
+const UL_FIELD_COUNTRY='entry.000000011'; // ← replace with real entry ID
 
 function populateUploadSelect(){
   const sel=document.getElementById('ul-subject-select');
@@ -1308,12 +1313,13 @@ function populateUploadSelect(){
 async function submitUpload(){
   const subjId=document.getElementById('ul-subject-select').value;
   const name=(document.getElementById('ul-name').value||'').trim()||'Anonymous';
+  const grade=(document.getElementById('ul-grade').value||'').trim();
+  const country=(document.getElementById('ul-country').value||'').trim();
   const msg=(document.getElementById('ul-message').value||'').trim();
   const subj=db.subjects.find(s=>s.id===subjId);
   if(!subj){showToast('Select a subject.');return;}
   if(UPLOAD_FORM_URL.includes('YOUR_UPLOAD_FORM_ID')){
-    showToast('Upload form not set up yet — see instructions.');
-    return;
+    showToast('Upload form not set up yet.');return;
   }
   const payload={version:2,exported:new Date().toISOString(),subjects:[subj]};
   try{
@@ -1322,9 +1328,13 @@ async function submitUpload(){
     body.append(UL_FIELD_SUBJECT,subj.name);
     body.append(UL_FIELD_DATA,JSON.stringify(payload));
     body.append(UL_FIELD_MSG,msg);
+    if(grade)body.append(UL_FIELD_GRADE,grade);
+    if(country)body.append(UL_FIELD_COUNTRY,country);
     await fetch(UPLOAD_FORM_URL,{method:'POST',mode:'no-cors',body});
   }catch(e){}
   document.getElementById('ul-name').value='';
+  document.getElementById('ul-grade').value='';
+  document.getElementById('ul-country').value='';
   document.getElementById('ul-message').value='';
   closeMod('modal-download');
   showToast('"'+subj.name+'" submitted for review!');
@@ -1373,10 +1383,16 @@ async function submitFeedback(){
 async function fetchLibrary(){
   const listEl=document.getElementById('lib-list');
   listEl.innerHTML='<div class="lib-loading">Loading library...</div>';
+  // clear previous search
+  const inp=document.getElementById('lib-search');
+  if(inp)inp.value='';
+  const clearBtn=document.getElementById('lib-search-clear');
+  if(clearBtn)clearBtn.style.display='none';
   try{
     const res=await fetch(LIBRARY_INDEX_URL+'?t='+Date.now());
     if(!res.ok)throw new Error('HTTP '+res.status);
     const index=await res.json();
+    _lastLibIndex=index;
     renderLibrary(index);
   }catch(e){
     listEl.innerHTML=`<div class="lib-error">
@@ -1410,10 +1426,20 @@ function renderLibrary(index,filter){
     const already=existingNames.has((item.name||'').trim().toLowerCase());
     const realIdx=index.subjects.indexOf(item);
     const tag=item.tag||item.category||'';
+    // uploader info
+    const uploader=item.uploader||item.author||'';
+    const grade=item.grade||'';
+    const country=item.country||'';
+    const metaParts=[];
+    if(uploader)metaParts.push(esc(uploader));
+    if(grade)metaParts.push(esc(grade));
+    if(country)metaParts.push(esc(country));
+    const uploaderLine=metaParts.length?`<div style="font-size:10px;color:var(--text3);margin-top:3px">${metaParts.join(' · ')}</div>`:'';
     return`<div class="lib-card${already?' added':''}" id="libcard-${realIdx}">
       <div class="lib-card-info">
         <div class="lib-name">${esc(item.emoji||'📚')} ${esc(item.name)}</div>
         <div class="lib-cnt">${item.lessonCount||'?'} lessons${tag?' · <span style="color:var(--accent);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">'+esc(tag)+'</span>':''}</div>
+        ${uploaderLine}
       </div>
       <button class="lib-add-btn${already?' done':''}"
         onclick="addFromLibrary('${item.file||''}',${realIdx},'libcard-${realIdx}')"
@@ -1427,7 +1453,7 @@ function renderLibrary(index,filter){
 function filterLibrary(q){
   const clearBtn=document.getElementById('lib-search-clear');
   if(clearBtn)clearBtn.style.display=q?'block':'none';
-  if(libCache)renderLibrary(libCache,q);
+  if(_lastLibIndex)renderLibrary(_lastLibIndex,q);
 }
 
 function clearLibSearch(){
